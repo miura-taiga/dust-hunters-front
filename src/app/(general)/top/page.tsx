@@ -16,11 +16,11 @@ export default function TopPage() {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
-          <p className="text-xl sm:text-2xl md:text-3xl bg-black bg-opacity-50 p-4 rounded-md mt-96">
+          <p className="text-xl sm:text-2xl md:text-3xl bg-black bg-opacity-50 p-4 rounded-md mt-72 sm:mt-80">
             日常の掃除を冒険に変える！クエストに挑戦し、モンスターを討伐しよう！
           </p>
         </div>
-        <div className="relative z-10 flex items-center justify-center mt-auto mb-28 sm:mb-32">
+        <div className="relative z-10 flex items-center justify-center mt-auto mb-60 sm:mb-60">
           <Link href="/quests">
             <BasicButton text="ひと狩り行こうぜ" />
           </Link>
