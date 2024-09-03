@@ -1,3 +1,30 @@
+import Link from "next/link";
+import Image from "next/image";
+import { BasicButton } from "@/components/layouts";
+
 export default function TopPage() {
-  return <article>topページ</article>;
+  return (
+    <article>
+      <div className="relative min-h-screen flex flex-col justify-between text-white">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/layouts/top_page_background_image.jpg"
+            alt="Dust Hunters Background"
+            fill
+            style={{ objectFit: "cover" }}
+            className="z-0"
+          />
+        </div>
+        <div className="relative z-10 flex-grow flex flex-col justify-center items-center text-center px-4">
+          <p className="text-xl sm:text-2xl md:text-3xl mt-96 bg-black bg-opacity-50 p-4 rounded-md">
+            日常の掃除を冒険に変える！クエストに挑戦し、モンスターを討伐しよう！
+          </p>
+          <div className="mt-8 flex-grow"></div>
+          <Link href="/quests">
+            <BasicButton text="ひと狩り行こうぜ" className="mb-10 sm:mb-40" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
 }
