@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth";
 
 const LoginPage = () => {
   const [isClient, setIsClient] = useState(false);
-  const router = useRouter();
-  const { setToken, currentUser } = useAuth();
+  const { setToken } = useAuth();
 
   useEffect(() => {
     setIsClient(true);
