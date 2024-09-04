@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# GitHub上に環境変数ファイルをコミットさせないための設定
+/.env*
