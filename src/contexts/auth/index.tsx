@@ -1,13 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 interface AuthContextType {
   token: string | null;
-  currentUser: any;
-  logout: () => void;
   setToken: (token: string) => void;
-  setCurrentUser: (user: any) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,58 +18,49 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const getTokenFromStorageOrUrl = () => {
+  const query = new URLSearchParams(window.location.search);
+  const tokenFromUrl = query.get("token");
+
+  if (tokenFromUrl) {
+    localStorage.setItem("authToken", tokenFromUrl);
+    return tokenFromUrl;
+  }
+
+  const storedToken = localStorage.getItem("authToken");
+  return storedToken || null;
+};
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isCheckingToken, setIsCheckingToken] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const tokenFromUrl = query.get("token");
-
-    if (tokenFromUrl) {
-      setTokenState(tokenFromUrl);
-      localStorage.setItem("authToken", tokenFromUrl);
-    } else {
-      const storedToken = localStorage.getItem("authToken");
-      if (storedToken) {
-        setTokenState(storedToken);
-      }
-    }
+    const token = getTokenFromStorageOrUrl();
+    setTokenState(token);
+    setIsCheckingToken(false);
   }, []);
 
   useEffect(() => {
-    if (token) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/current`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch user");
-          }
-          return response.json();
-        })
-        .then((data) => setCurrentUser(data.user))
-        .catch((error) => {
-          console.error("Error fetching user:", error);
-          logout();
-        });
+    const publicPaths = ["/login", "/top"];
+    if (!isCheckingToken && !token && !publicPaths.includes(pathname)) {
+      router.push("/login");
     }
-  }, [token]);
+  }, [token, pathname, isCheckingToken, router]);
 
   const setToken = (token: string) => {
     setTokenState(token);
-  };
-
-  const logout = () => {
-    setCurrentUser(null);
-    setTokenState(null);
-    localStorage.removeItem("authToken");
+    localStorage.setItem("authToken", token);
   };
 
   return (
-    <AuthContext.Provider value={{ token, logout, setToken, currentUser, setCurrentUser }}>
+    <AuthContext.Provider value={{ token, setToken }}>
       {children}
     </AuthContext.Provider>
   );
