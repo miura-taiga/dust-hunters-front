@@ -62,7 +62,7 @@ export default function QuestPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[url('/images/monsters/basic_background.jpg')] bg-repeat bg-auto flex flex-col justify-center items-center">
+    <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex flex-col justify-center items-center">
       <div className="w-full max-w-6xl pt-4 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* クエスト一覧 */}
