@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -12,6 +12,8 @@ import {
   CardContent,
 } from "@mui/material";
 import { SuccessMessage } from "@/components/layouts";
+import useFetchData from "@/lib/useFetchData";
+import { useParams } from "next/navigation";
 
 const textFieldSx = {
   input: { color: "white" },
@@ -24,31 +26,73 @@ const textFieldSx = {
   },
 };
 
+const genderOptions = {
+  男性: "male",
+  女性: "female",
+  その他: "other",
+};
+
 export default function UserProfile() {
+  const { uid } = useParams();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setter(e.target.value);
+  const userData = useFetchData(uid ? `${API_URL}/api/v1/users/${uid}` : null);
+
+  useEffect(() => {
+    if (userData) {
+      setName(userData.name);
+      const genderInJapanese = mapGenderToJapanese(userData.gender);
+      setGender(genderInJapanese || '');
+    }
+  }, [userData]);
+
+  const mapGenderToJapanese = (gender: string) => {
+    return Object.keys(genderOptions).find(
+      (key) => genderOptions[key as keyof typeof genderOptions] === gender
+    );
   };
 
-  const handleSubmit = () => {
-    setShowSuccessMessage(true);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "name") setName(value);
+    if (name === "gender") setGender(value);
   };
 
-  const handleCloseMessage = () => {
-    setShowSuccessMessage(false);
+  // フォームの送信処理
+  const handleSubmit = async () => {
+    const genderInEnglish = genderOptions[gender as keyof typeof genderOptions];
+    try {
+      const response = await fetch(`${API_URL}/api/v1/users/${uid}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: { name, gender: genderInEnglish } }),
+      });
+
+      if (response.ok) {
+        setShowSuccessMessage(true);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.errors.join(", "));
+      }
+    } catch (error) {
+      alert("エラーが発生しました。名前は一文字以上で入力してください");
+    }
   };
+
+  if (!userData) return <div>読み込み中...</div>;
 
   return (
     <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex justify-center items-center">
       {showSuccessMessage && (
         <SuccessMessage
           message="プロフィールが保存されました！"
-          onClose={handleCloseMessage}
+          onClose={() => setShowSuccessMessage(false)}
         />
       )}
 
@@ -66,19 +110,21 @@ export default function UserProfile() {
             <Stack spacing={2}>
               <TextField
                 fullWidth
+                name="name"
                 label="名前"
                 variant="outlined"
                 value={name}
-                onChange={handleInputChange(setName)}
+                onChange={handleInputChange}
                 sx={textFieldSx}
               />
               <TextField
                 select
                 fullWidth
+                name="gender"
                 label="性別"
                 variant="outlined"
                 value={gender}
-                onChange={handleInputChange(setGender)}
+                onChange={handleInputChange}
                 SelectProps={{
                   MenuProps: {
                     PaperProps: {
@@ -96,7 +142,7 @@ export default function UserProfile() {
                   },
                 }}
               >
-                {["男性", "女性", "その他"].map((option) => (
+                {Object.keys(genderOptions).map((option) => (
                   <MenuItem key={option} value={option} sx={{ color: "white" }}>
                     {option}
                   </MenuItem>
@@ -117,3 +163,5 @@ export default function UserProfile() {
     </div>
   );
 }
+
+
