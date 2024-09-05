@@ -26,10 +26,10 @@ const quests: Quest[] = [
   { id: 7, title: "天空の王者、大地の暴君" },
 ];
 
-const monsterImage = "/images/layouts/monster_question_mark.jpg"; // モンスターの画像パス
+const monsterImage = "/images/monsters/encyclopedias/monster_question_mark.jpg";
 
 export default function QuestPage() {
-  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(quests[0]); // 初期状態で最初のクエストを選択
+  const [selectedQuest, setSelectedQuest] = useState<Quest | null>(quests[0]);
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
