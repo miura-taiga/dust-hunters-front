@@ -14,6 +14,7 @@ import {
 import { SuccessMessage } from "@/components/layouts";
 import useFetchData from "@/lib/useFetchData";
 import { useParams } from "next/navigation";
+import { useAuth } from "@/contexts/auth";
 
 const textFieldSx = {
   input: { color: "white" },
@@ -34,13 +35,14 @@ const genderOptions = {
 
 export default function UserProfile() {
   const { uid } = useParams();
+  const { token } = useAuth();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const userData = useFetchData(uid ? `${API_URL}/api/v1/users/${uid}` : null);
+  const userData = useFetchData(uid ? `${API_URL}/api/v1/users/${uid}` : null, token);
 
   useEffect(() => {
     if (userData) {
@@ -62,7 +64,6 @@ export default function UserProfile() {
     if (name === "gender") setGender(value);
   };
 
-  // フォームの送信処理
   const handleSubmit = async () => {
     const genderInEnglish = genderOptions[gender as keyof typeof genderOptions];
     try {
@@ -70,6 +71,7 @@ export default function UserProfile() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ user: { name, gender: genderInEnglish } }),
       });
@@ -163,5 +165,3 @@ export default function UserProfile() {
     </div>
   );
 }
-
-
