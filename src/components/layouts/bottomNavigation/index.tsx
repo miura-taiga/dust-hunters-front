@@ -55,7 +55,7 @@ export default function SimpleBottomNavigation() {
         <BottomNavigation
           showLabels
           value={value}
-          onChange={(event, newValue) => handleNavigation(newValue)}
+          onChange={(_event, newValue) => handleNavigation(newValue)}
         >
           <BottomNavigationAction label="ホーム" icon={<HomeIcon />} />
           <BottomNavigationAction label="クエスト" icon={<AssignmentIcon />} />
