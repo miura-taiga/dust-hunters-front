@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth";
+import { Settings } from "@/config";
 
 const LoginPage = () => {
   const [isClient, setIsClient] = useState(false);
@@ -21,7 +22,7 @@ const LoginPage = () => {
     e.preventDefault();
     const form = document.createElement("form");
     form.method = "GET";
-    form.action = `${process.env.NEXT_PUBLIC_API_URL}/auth/google_oauth2`;
+    form.action = `${Settings.API_URL}/auth/google_oauth2`;
     document.body.appendChild(form);
     form.submit();
   };

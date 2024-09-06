@@ -1,13 +1,16 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { Settings } from "@/config";
 
 interface AuthContextType {
   token: string | null;
   googleUserId: string | null;
+  currentUser: any;
   setToken: (token: string) => void;
+  logout: () => void;
 }
 
 interface JwtPayload {
@@ -34,36 +37,70 @@ const getTokenFromStorageOrUrl = () => {
   const tokenFromUrl = query.get("token");
 
   if (tokenFromUrl) {
-    localStorage.setItem("authToken", tokenFromUrl);
+    console.log("Token from URL:", tokenFromUrl);
     return tokenFromUrl;
   }
 
   const storedToken = localStorage.getItem("authToken");
+  console.log("Token from localStorage:", storedToken);
   return storedToken || null;
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null);
   const [googleUserId, setGoogleUserId] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
+  const logout = useCallback(() => { // logout関数をuseCallbackでラップ
+    setGoogleUserId(null);
+    setTokenState(null);
+    setCurrentUser(null);
+    localStorage.removeItem("authToken");
+    router.push("/login");
+  }, [router]);
+
   useEffect(() => {
     const token = getTokenFromStorageOrUrl();
-    setTokenState(token);
 
     if (token) {
+      setTokenState(token);
+      localStorage.setItem("authToken", token); // トークンを設定後に保存
+
       try {
         const decoded = jwtDecode<JwtPayload>(token);
+        console.log("Decoded token:", decoded);
         setGoogleUserId(decoded.google_user_id);
+
+        fetch(`${Settings.API_URL}/api/v1/users/current`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch user");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Fetched user data:", data);
+            setCurrentUser(data.user);
+          })
+          .catch((error) => {
+            console.error("Error fetching user:", error);
+            logout();
+          });
       } catch (error) {
         console.error("Invalid token", error);
+        logout();
       }
     }
 
     setIsCheckingToken(false);
-  }, []);
+  }, [logout]);
 
   useEffect(() => {
     const publicPaths = ["/login", "/top"];
@@ -75,14 +112,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const setToken = (token: string) => {
     setTokenState(token);
     localStorage.setItem("authToken", token);
-    if (token) {
-      const decoded = jwtDecode<JwtPayload>(token);
-      setGoogleUserId(decoded.google_user_id);
-    }
   };
 
   return (
-    <AuthContext.Provider value={{ token, googleUserId, setToken }}>
+    <AuthContext.Provider value={{ token, googleUserId, currentUser, setToken, logout }}>
       {children}
     </AuthContext.Provider>
   );
