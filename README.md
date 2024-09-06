@@ -36,3 +36,4 @@ $ yarn lint:fix
 
 - [MaterialUI](https://next--material-ui.netlify.app/material-ui)
 - [SWR](https://swr.vercel.app)
+- [jwt-decode](https://github.com/auth0/jwt-decode)
