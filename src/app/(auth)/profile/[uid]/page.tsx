@@ -83,7 +83,7 @@ export default function UserProfile() {
         alert(errorData.errors.join(", "));
       }
     } catch (error) {
-      alert("エラーが発生しました。名前は一文字以上で入力してください");
+      alert("エラーが発生しました。");
     }
   };
 
