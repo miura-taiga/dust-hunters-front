@@ -9,10 +9,12 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import BookIcon from "@mui/icons-material/Book";
 import PersonIcon from "@mui/icons-material/Person";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth";
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
+  const { googleUserId } = useAuth();
 
   const handleNavigation = (newValue: number) => {
     setValue(newValue);
@@ -28,7 +30,9 @@ export default function SimpleBottomNavigation() {
         router.push("/guildCards/encyclopedias");
         break;
       case 3:
-        router.push("/profile");
+        if (googleUserId) {
+          router.push(`/profile/${googleUserId}`);
+        }
         break;
       default:
         break;
@@ -41,7 +45,7 @@ export default function SimpleBottomNavigation() {
         sx={{
           width: "100%",
           position: "fixed",
-          bottom: 0, 
+          bottom: 0,
           left: 0,
           right: 0,
           zIndex: 1000,

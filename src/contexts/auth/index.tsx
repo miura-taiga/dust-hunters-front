@@ -2,10 +2,17 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 interface AuthContextType {
   token: string | null;
+  googleUserId: string | null;
   setToken: (token: string) => void;
+}
+
+interface JwtPayload {
+  google_user_id: string;
+  exp: number;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,6 +44,7 @@ const getTokenFromStorageOrUrl = () => {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null);
+  const [googleUserId, setGoogleUserId] = useState<string | null>(null);
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
@@ -44,6 +52,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const token = getTokenFromStorageOrUrl();
     setTokenState(token);
+
+    if (token) {
+      try {
+        const decoded = jwtDecode<JwtPayload>(token);
+        setGoogleUserId(decoded.google_user_id);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    }
+
     setIsCheckingToken(false);
   }, []);
 
@@ -57,10 +75,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const setToken = (token: string) => {
     setTokenState(token);
     localStorage.setItem("authToken", token);
+    if (token) {
+      const decoded = jwtDecode<JwtPayload>(token);
+      setGoogleUserId(decoded.google_user_id);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <AuthContext.Provider value={{ token, googleUserId, setToken }}>
       {children}
     </AuthContext.Provider>
   );
