@@ -10,6 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
+import { SuccessMessage } from "@/components/layouts/messages";
 
 interface Quest {
   id: number;
@@ -32,6 +33,8 @@ export default function QuestPage() {
   const [selectedQuest, setSelectedQuest] = useState<Quest | null>(quests[0]);
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -46,6 +49,16 @@ export default function QuestPage() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
+    if (token) {
+      setSuccessMessage("ログインしました！");
+      setShowSuccessMessage(true);
+    }
   }, []);
 
   const handleQuestClick = (quest: Quest) => {
@@ -63,6 +76,12 @@ export default function QuestPage() {
 
   return (
     <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex flex-col justify-center items-center">
+      {showSuccessMessage && (
+        <SuccessMessage
+          message={successMessage}
+          onClose={() => setShowSuccessMessage(false)}
+        />
+      )}
       <div className="w-full max-w-6xl pt-4 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* クエスト一覧 */}

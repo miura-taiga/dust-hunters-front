@@ -105,7 +105,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const publicPaths = ["/login", "/top"];
     if (!isCheckingToken && !token && !publicPaths.includes(pathname)) {
-      router.push("/login");
+      router.push("/login?flash=warning&message=ログインが必要です。");
     }
   }, [token, pathname, isCheckingToken, router]);
 

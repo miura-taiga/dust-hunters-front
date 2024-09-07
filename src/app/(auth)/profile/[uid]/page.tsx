@@ -11,7 +11,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { SuccessMessage } from "@/components/layouts";
+import { SuccessMessage, ErrorMessage } from "@/components/layouts/messages";
 import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
@@ -46,6 +46,7 @@ export default function UserProfile() {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
@@ -102,11 +103,10 @@ export default function UserProfile() {
       if (response.ok) {
         setShowSuccessMessage(true);
       } else {
-        const errorData = await response.json();
-        alert(errorData.errors?.join(", ") || "エラーが発生しました。");
+        setShowErrorMessage(true);
       }
     } catch (error) {
-      alert("エラーが発生しました。");
+      alert("プロフィール編集に失敗しました")
     }
   };
 
@@ -118,6 +118,13 @@ export default function UserProfile() {
         <SuccessMessage
           message="プロフィールが保存されました！"
           onClose={() => setShowSuccessMessage(false)}
+        />
+      )}
+
+      {showErrorMessage && (
+        <ErrorMessage
+          message="名前は1〜10文字以内で入力してください"
+          onClose={() => setShowErrorMessage(false)}
         />
       )}
 
