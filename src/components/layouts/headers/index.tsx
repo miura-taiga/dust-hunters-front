@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import { BasicButton } from "@/components/layouts";
 import Link from "next/link";
+import LoginButton from "@/features/loginBottun";
 
 export default function Header() {
   return (
@@ -39,9 +40,7 @@ export default function Header() {
             Dust Hunters
           </Typography>
         </Link>
-        <Link href="/login">
-          <BasicButton text="ログイン" startIcon={<LoginIcon />} />
-        </Link>
+        <LoginButton />
       </Toolbar>
     </AppBar>
   );
