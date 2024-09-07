@@ -12,9 +12,15 @@ import {
   CardContent,
 } from "@mui/material";
 import { SuccessMessage } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/contexts/auth";
+import { Settings } from "@/config";
+
+interface UserData {
+  name: string;
+  gender: string;
+  errors?: string[];
+}
 
 const textFieldSx = {
   input: { color: "white" },
@@ -27,36 +33,53 @@ const textFieldSx = {
   },
 };
 
-const genderOptions = {
+const genderOptions: { [key: string]: string } = {
   男性: "male",
   女性: "female",
   その他: "other",
 };
 
 export default function UserProfile() {
-  const { uid } = useParams();
-  const { token } = useAuth();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const { uid } = useParams<{ uid: string }>(); // URLからuidを取得
+  const { token } = useAuth(); // 認証トークンを取得
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-  const userData = useFetchData(uid ? `${API_URL}/api/v1/users/${uid}` : null, token);
+  useEffect(() => {
+    if (token && uid) {
+      (async () => {
+        try {
+          const response = await fetch(`${Settings.API_URL}/api/v1/users/${uid}`, {
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const data: UserData = await response.json();
+            setUserData(data);
+          } else {
+            const errorData = await response.json();
+            console.error("Failed to fetch user data:", errorData);
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      })();
+    }
+  }, [token, uid]);
 
   useEffect(() => {
     if (userData) {
       setName(userData.name);
-      const genderInJapanese = mapGenderToJapanese(userData.gender);
-      setGender(genderInJapanese || '');
+      setGender(Object.keys(genderOptions).find(
+        (key) => genderOptions[key] === userData.gender
+      ) || '');
     }
   }, [userData]);
-
-  const mapGenderToJapanese = (gender: string) => {
-    return Object.keys(genderOptions).find(
-      (key) => genderOptions[key as keyof typeof genderOptions] === gender
-    );
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,7 +90,7 @@ export default function UserProfile() {
   const handleSubmit = async () => {
     const genderInEnglish = genderOptions[gender as keyof typeof genderOptions];
     try {
-      const response = await fetch(`${API_URL}/api/v1/users/${uid}`, {
+      const response = await fetch(`${Settings.API_URL}/api/v1/users/${uid}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +103,7 @@ export default function UserProfile() {
         setShowSuccessMessage(true);
       } else {
         const errorData = await response.json();
-        alert(errorData.errors.join(", "));
+        alert(errorData.errors?.join(", ") || "エラーが発生しました。");
       }
     } catch (error) {
       alert("エラーが発生しました。");
