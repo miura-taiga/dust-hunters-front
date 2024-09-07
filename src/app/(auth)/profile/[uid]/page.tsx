@@ -15,6 +15,7 @@ import { SuccessMessage, ErrorMessage } from "@/components/layouts/messages";
 import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
+import { Progress } from "@/components/layouts";
 
 interface UserData {
   name: string;
@@ -110,7 +111,7 @@ export default function UserProfile() {
     }
   };
 
-  if (!userData) return <div>読み込み中...</div>;
+  if (!userData) return <Progress />;
 
   return (
     <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex justify-center items-center">
