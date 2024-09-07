@@ -12,9 +12,9 @@ import {
   CardContent,
 } from "@mui/material";
 import { SuccessMessage } from "@/components/layouts";
-import { useParams } from "next/navigation";
 import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
+import { UserUid } from "@/hooks/userUid";
 
 interface UserData {
   name: string;
@@ -40,8 +40,8 @@ const genderOptions: { [key: string]: string } = {
 };
 
 export default function UserProfile() {
-  const { uid } = useParams<{ uid: string }>(); // URLからuidを取得
-  const { token } = useAuth(); // 認証トークンを取得
+  const uid = UserUid();
+  const { token } = useAuth();
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -63,10 +63,10 @@ export default function UserProfile() {
             setUserData(data);
           } else {
             const errorData = await response.json();
-            console.error("Failed to fetch user data:", errorData);
+            alert(`データ取得に失敗しました: ${errorData.errors?.join(", ") || "不明なエラー"}`);
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          alert("データ取得中にエラーが発生しました。");
         }
       })();
     }
