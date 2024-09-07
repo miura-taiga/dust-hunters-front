@@ -2,11 +2,13 @@
 
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
-import { BasicButton } from "@/components/layouts";
 import Link from "next/link";
+import LoginButton from "@/features/loginButton";
+import { useAuth } from "@/contexts/auth";
 
 export default function Header() {
+  const { token } = useAuth();
+
   return (
     <AppBar
       position="static"
@@ -39,9 +41,8 @@ export default function Header() {
             Dust Hunters
           </Typography>
         </Link>
-        <Link href="/login">
-          <BasicButton text="ログイン" startIcon={<LoginIcon />} />
-        </Link>
+        {/* トークンがない場合のみ LoginButton を表示 */}
+        {!token && <LoginButton />}
       </Toolbar>
     </AppBar>
   );

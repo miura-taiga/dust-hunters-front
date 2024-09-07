@@ -1,11 +1,35 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BasicButton } from "@/components/layouts";
+import { WarningMessage } from "@/components/layouts/messages";
 
-export default function TopPage() {
+const TopPage: React.FC = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const flash = searchParams.get("flash");
+    const message = searchParams.get("message");
+
+    if (flash === "warning" && message) {
+      setMessage(message);
+      setShowMessage(true);
+    }
+  }, []);
+
   return (
     <article>
       <div className="relative min-h-screen flex flex-col justify-center text-white">
+        {showMessage && (
+          <WarningMessage
+            message={message}
+            onClose={() => setShowMessage(false)}
+          />
+        )}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/layouts/top_page_background_image.jpg"
@@ -28,4 +52,6 @@ export default function TopPage() {
       </div>
     </article>
   );
-}
+};
+
+export default TopPage;
