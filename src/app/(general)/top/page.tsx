@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { BasicButton } from "@/components/layouts";
 import { WarningMessage } from "@/components/layouts/messages";
-import LoginButton from "@/features/loginBottun";
 
 const TopPage: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false);
