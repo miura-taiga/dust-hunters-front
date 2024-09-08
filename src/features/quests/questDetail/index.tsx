@@ -38,25 +38,38 @@ const Title = styled.h6`
   padding-bottom: 10px;
 `;
 
+const MonsterImage = styled(Image)`
+  margin-bottom: 20px;
+`;
+
+const MonsterName = styled.p`
+  text-align: center;
+  font-size: 1.25rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+`;
+
 const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monsterImage }) => {
   return (
     <QuestDetailContainer>
       <TitleContainer>
         <Title>{quest.title}</Title>
       </TitleContainer>
-      <Image
+      <MonsterImage
         src={monsterImage}
         alt={quest.monsterName}
         width={250}
         height={250}
-        className="mb-6 border-4 border-gray-300 rounded-lg"
+        className="border-4 border-gray-300 rounded-lg"
       />
-      <p className="text-center mb-6 text-xl">
-        {quest.monsterName} 1頭の狩猟
-      </p>
-      <Link href={`/quests/${quest.id}/battleStart`}>
-        <BasicButton text="クエスト出発" />
-      </Link>
+      <MonsterName>{quest.monsterName} 1頭の狩猟</MonsterName>
+      <ButtonContainer>
+        <Link href={`/quests/${quest.id}/battleStart`}>
+          <BasicButton text="クエスト出発" />
+        </Link>
+      </ButtonContainer>
     </QuestDetailContainer>
   );
 };

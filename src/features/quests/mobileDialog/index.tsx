@@ -21,17 +21,36 @@ interface MobileDialogProps {
 }
 
 const StyledDialogTitle = styled(DialogTitle)`
+  position: relative;
   border-bottom: 2px solid #ffffff;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const StyledMonsterName = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const CloseButton = styled(IconButton)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
 `;
 
 const MobileDialog: React.FC<MobileDialogProps> = ({ open, onClose, quest, monsterImage }) => {
@@ -52,29 +71,27 @@ const MobileDialog: React.FC<MobileDialogProps> = ({ open, onClose, quest, monst
     >
       <StyledDialogTitle>
         {quest.title}
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-300 hover:text-white"
-        >
+        <CloseButton aria-label="close" onClick={onClose}>
           <CloseIcon />
-        </IconButton>
+        </CloseButton>
       </StyledDialogTitle>
-      <DialogContent dividers className="text-center">
+
+      <StyledDialogContent dividers>
         <Image
           src={monsterImage}
           alt={quest.monsterName}
           width={200}
           height={200}
-          className="mb-6 mx-auto border-4 border-gray-300 rounded-lg"
+          style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
         />
         <StyledMonsterName>
-         {quest.monsterName} 1頭の狩猟k
+          {quest.monsterName} 1頭の狩猟
         </StyledMonsterName>
+
         <Link href={`/quests/${quest.id}/battleStart`}>
           <BasicButton text="クエスト出発" />
         </Link>
-      </DialogContent>
+      </StyledDialogContent>
     </Dialog>
   );
 };
