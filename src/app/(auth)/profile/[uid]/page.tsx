@@ -16,6 +16,7 @@ import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
 import { Progress } from "@/components/layouts";
+import styled from "@emotion/styled";
 
 interface UserData {
   name: string;
@@ -23,13 +24,57 @@ interface UserData {
   errors?: string[];
 }
 
+const GameContainer = styled.div`
+  background-image: url('/images/layouts/basic_background.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+`;
+
+const StyledCard = styled(Card)`
+  background-color: rgba(30, 58, 138, 0.8);
+  border: 3px solid #c0c0c0;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  color: white;
+`;
+
+const textFieldColor = "#1E3A8A";
+const fieldHighlightColor = "rgba(30, 58, 138, 0.8)";
+
 const textFieldSx = {
-  input: { color: "white" },
-  "& .MuiInputLabel-root": { color: "white" },
+  input: {
+    color: "white",
+    backgroundColor: fieldHighlightColor,
+    borderRadius: "4px",
+  },
+  "& .MuiInputLabel-root": {
+    color: "white",
+    fontWeight: "bold",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: textFieldColor,
+      borderWidth: "2px",
+    },
+    "&:hover fieldset": {
+      borderColor: "#3B82F6",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#3B82F6",
+    },
+  },
   "& input": {
+    backgroundColor: "transparent",
     "&:-webkit-autofill": {
-      WebkitBoxShadow: "0 0 0 100px #374151 inset",
-      WebkitTextFillColor: "white",
+      WebkitBoxShadow: `0 0 0 100px ${fieldHighlightColor} inset`,
+      WebkitTextFillColor: "white", 
     },
   },
 };
@@ -56,7 +101,7 @@ export default function UserProfile() {
         try {
           const response = await fetch(`${Settings.API_URL}/api/v1/users/${uid}`, {
             headers: {
-              "Authorization": `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           });
 
@@ -77,9 +122,11 @@ export default function UserProfile() {
   useEffect(() => {
     if (userData) {
       setName(userData.name);
-      setGender(Object.keys(genderOptions).find(
-        (key) => genderOptions[key] === userData.gender
-      ) || '');
+      setGender(
+        Object.keys(genderOptions).find(
+          (key) => genderOptions[key] === userData.gender
+        ) || ""
+      );
     }
   }, [userData]);
 
@@ -96,7 +143,7 @@ export default function UserProfile() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ user: { name, gender: genderInEnglish } }),
       });
@@ -107,14 +154,14 @@ export default function UserProfile() {
         setShowErrorMessage(true);
       }
     } catch (error) {
-      alert("プロフィール編集に失敗しました")
+      alert("プロフィール編集に失敗しました");
     }
   };
 
   if (!userData) return <Progress />;
 
   return (
-    <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex justify-center items-center">
+    <GameContainer>
       {showSuccessMessage && (
         <SuccessMessage
           message="プロフィールが保存されました！"
@@ -130,7 +177,7 @@ export default function UserProfile() {
       )}
 
       <Box sx={{ width: "100%", maxWidth: 600, mx: "auto", p: 3 }}>
-        <Card sx={{ backgroundColor: "#374151", color: "white" }}>
+        <StyledCard>
           <CardContent>
             <Typography
               variant="h4"
@@ -162,7 +209,7 @@ export default function UserProfile() {
                   MenuProps: {
                     PaperProps: {
                       sx: {
-                        backgroundColor: "#374151",
+                        backgroundColor: textFieldColor,
                         color: "white",
                       },
                     },
@@ -172,6 +219,7 @@ export default function UserProfile() {
                   ...textFieldSx,
                   "& .MuiSelect-select": {
                     color: "white",
+                    backgroundColor: "transparent",
                   },
                 }}
               >
@@ -191,8 +239,8 @@ export default function UserProfile() {
               </Button>
             </Stack>
           </CardContent>
-        </Card>
+        </StyledCard>
       </Box>
-    </div>
+    </GameContainer>
   );
 }
