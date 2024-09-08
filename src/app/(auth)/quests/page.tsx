@@ -11,23 +11,69 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import { SuccessMessage } from "@/components/layouts/messages";
+import styled from "@emotion/styled";
 
 interface Quest {
   id: number;
   title: string;
+  monsterName: string;
 }
 
 const quests: Quest[] = [
-  { id: 1, title: "泥土の隠者" },
-  { id: 2, title: "彷徨える雪鬼獣" },
-  { id: 3, title: "轟く声" },
-  { id: 4, title: "ねじれた欲望" },
-  { id: 5, title: "大社跡での肝試し" },
-  { id: 6, title: "電光雷轟、夢幻泡影" },
-  { id: 7, title: "天空の王者、大地の暴君" },
+  { id: 1, title: "泥土の隠者", monsterName: "ドロドロン" },
+  { id: 2, title: "彷徨える雪鬼獣", monsterName: "ユキオニ" },
+  { id: 3, title: "轟く声", monsterName: "ゴウゴウザウルス" },
+  { id: 4, title: "ねじれた欲望", monsterName: "ネジレッド" },
+  { id: 5, title: "大社跡での肝試し", monsterName: "ヒミツノヨウカイ" },
 ];
 
 const monsterImage = "/images/monsters/encyclopedias/monster_question_mark.jpg";
+
+const GameContainer = styled.div`
+  background-image: url('/images/layouts/basic_background.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+`;
+
+const QuestBoard = styled.div`
+  background-color: rgba(30, 58, 138, 0.8);
+  border: 3px solid #C0C0C0;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+`;
+
+const QuestItem = styled.li<{ isSelected: boolean }>`
+  background-color: ${props => props.isSelected ? "#3B82F6" : "#1E3A8A"};
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #3B82F6;
+    transform: scale(1.05);
+  }
+`;
+
+const QuestDetailContainer = styled.div`
+  background-color: rgba(30, 58, 138, 0.8);
+  border: 3px solid #C0C0C0;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+`;
 
 export default function QuestPage() {
   const [selectedQuest, setSelectedQuest] = useState<Quest | null>(quests[0]);
@@ -42,7 +88,6 @@ export default function QuestPage() {
       setIsMobile(window.innerWidth <= 600);
     };
 
-    // 初回レンダリング時とリサイズ時にデバイスのサイズをチェック
     handleResize();
     window.addEventListener("resize", handleResize);
 
@@ -75,7 +120,7 @@ export default function QuestPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[url('/images/layouts/basic_background.jpg')] bg-repeat bg-auto flex flex-col justify-center items-center">
+    <GameContainer>
       {showSuccessMessage && (
         <SuccessMessage
           message={successMessage}
@@ -84,82 +129,81 @@ export default function QuestPage() {
       )}
       <div className="w-full max-w-6xl pt-4 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* クエスト一覧 */}
-          <div className="bg-gray-700 text-white p-4 rounded-lg md:col-span-1">
-            <h6 className="text-center text-lg font-semibold mb-4">
-              クエスト一覧
+          <QuestBoard className="md:col-span-1">
+            <h6 className="text-center text-2xl font-bold mb-6">
+              クエスト掲示板
             </h6>
             <ul>
               {quests.map((quest) => (
-                <li
+                <QuestItem
                   key={quest.id}
                   onClick={() => handleQuestClick(quest)}
-                  className={`p-2 mb-2 rounded cursor-pointer ${
-                    selectedQuest?.id === quest.id
-                      ? "bg-gray-600"
-                      : "bg-gray-700"
-                  } hover:bg-gray-600`}
+                  isSelected={selectedQuest?.id === quest.id}
                 >
-                  {quest.title}
-                </li>
+                  {quest.title} - {quest.monsterName}
+                </QuestItem>
               ))}
             </ul>
-          </div>
+          </QuestBoard>
 
-          {/* クエスト詳細 (PC画面時に表示) */}
           {!isMobile && selectedQuest && (
-            <div className="md:col-span-2 bg-gray-700 text-white p-4 rounded-lg flex flex-col items-center">
-              <h6 className="text-lg font-semibold mb-4">
+            <QuestDetailContainer className="md:col-span-2">
+              <h6 className="text-2xl font-bold mb-6">
                 {selectedQuest.title}
               </h6>
-              {/* モンスターの画像 */}
               <Image
                 src={monsterImage}
-                alt={selectedQuest.title}
-                width={200}
-                height={200}
-                className="mb-4"
+                alt={selectedQuest.monsterName}
+                width={250}
+                height={250}
+                className="mb-6 border-4 border-gray-300 rounded-lg"
               />
-              <p className="text-center mb-4">
-                {`${selectedQuest.title} 1頭の狩猟`}
+              <p className="text-center mb-6 text-xl">
+                {`目標: ${selectedQuest.monsterName} 1頭の狩猟`}
               </p>
               <Link href={`/quests/${selectedQuest.id}/battleStart`}>
                 <BasicButton text="クエスト出発" />
               </Link>
-            </div>
+            </QuestDetailContainer>
           )}
         </div>
       </div>
 
-      {/* モバイル版モーダル */}
       {isMobile && open && (
         <Dialog
           open={open}
           onClose={() => setOpen(false)}
           fullWidth
           maxWidth="sm"
+          PaperProps={{
+            style: {
+              backgroundColor: 'rgba(30, 58, 138, 0.9)',
+              border: '3px solid #C0C0C0',
+              borderRadius: '15px',
+              color: '#fff',
+            },
+          }}
         >
           <DialogTitle>
             {selectedQuest?.title}
             <IconButton
               aria-label="close"
               onClick={() => setOpen(false)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+              className="absolute top-2 right-2 text-gray-300 hover:text-white"
             >
               <CloseIcon />
             </IconButton>
           </DialogTitle>
           <DialogContent dividers className="text-center">
-            {/* モンスターの画像（モバイル版） */}
             <Image
               src={monsterImage}
-              alt={selectedQuest?.title || "モンスター"}
-              width={150}
-              height={150}
-              className="mb-4 mx-auto"
+              alt={selectedQuest?.monsterName || "モンスター"}
+              width={200}
+              height={200}
+              className="mb-6 mx-auto border-4 border-gray-300 rounded-lg"
             />
-            <p className="mb-4">
-              {selectedQuest && `${selectedQuest.title} 1頭の狩猟`}
+            <p className="mb-6 text-xl">
+              {selectedQuest && `目標: ${selectedQuest.monsterName} 1頭の狩猟`}
             </p>
             <Link href={`/quests/${selectedQuest?.id}/battleStart`}>
               <BasicButton text="クエスト出発" />
@@ -167,6 +211,6 @@ export default function QuestPage() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+    </GameContainer>
   );
 }
