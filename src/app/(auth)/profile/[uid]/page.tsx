@@ -16,6 +16,7 @@ import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
 import { Progress } from "@/components/layouts";
+import { GameContainerWrapper } from "@/features/quests";
 import styled from "@emotion/styled";
 
 interface UserData {
@@ -23,19 +24,6 @@ interface UserData {
   gender: string;
   errors?: string[];
 }
-
-const GameContainer = styled.div`
-  background-image: url('/images/layouts/basic_background.jpg');
-  background-repeat: repeat;
-  background-size: auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-`;
 
 const StyledCard = styled(Card)`
   background-color: rgba(30, 58, 138, 0.8);
@@ -161,7 +149,7 @@ export default function UserProfile() {
   if (!userData) return <Progress />;
 
   return (
-    <GameContainer>
+    <GameContainerWrapper>
       {showSuccessMessage && (
         <SuccessMessage
           message="プロフィールが保存されました！"
@@ -241,6 +229,6 @@ export default function UserProfile() {
           </CardContent>
         </StyledCard>
       </Box>
-    </GameContainer>
+    </GameContainerWrapper>
   );
 }
