@@ -1,23 +1,34 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Image from 'next/image';
-import Link from 'next/link';
-import { BasicButton } from '@/components/layouts';
-import styled from '@emotion/styled';
+"use client";
+
+import React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
+import Link from "next/link";
+import { BasicButton, Loading } from "@/components/layouts";
+import styled from "@emotion/styled";
+import useFetchData from "@/lib/useFetchData";
+import { Settings } from "@/config";
 
 interface MobileDialogProps {
   open: boolean;
   onClose: () => void;
-  quest: {
-    id: number;
-    title: string;
-    monsterName: string;
-  };
-  monsterImage: string;
+  questId: number;
+}
+
+interface Quest {
+  id: number;
+  title: string;
+  monster_id: number;
+}
+
+interface Monster {
+  id: number;
+  name: string;
+  bestiary_monster_image_url: string;
 }
 
 const StyledDialogTitle = styled(DialogTitle)`
@@ -53,7 +64,22 @@ const CloseButton = styled(IconButton)`
   color: #fff;
 `;
 
-const MobileDialog: React.FC<MobileDialogProps> = ({ open, onClose, quest, monsterImage }) => {
+const MobileDialog: React.FC<MobileDialogProps> = ({
+  open,
+  onClose,
+  questId,
+}) => {
+  const quest = useFetchData<Quest>(
+    `${Settings.API_URL}/api/v1/quests/${questId}`
+  );
+  const monster = useFetchData<Monster>(
+    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
+  );
+
+  if (!quest || !monster) {
+    return <Loading />;
+  }
+
   return (
     <Dialog
       open={open}
@@ -62,10 +88,10 @@ const MobileDialog: React.FC<MobileDialogProps> = ({ open, onClose, quest, monst
       maxWidth="sm"
       PaperProps={{
         style: {
-          backgroundColor: 'rgba(30, 58, 138, 0.9)',
-          color: '#fff',
-          borderRadius: '15px',
-          padding: '20px',
+          backgroundColor: "rgba(30, 58, 138, 0.9)",
+          color: "#fff",
+          borderRadius: "15px",
+          padding: "20px",
         },
       }}
     >
@@ -78,15 +104,17 @@ const MobileDialog: React.FC<MobileDialogProps> = ({ open, onClose, quest, monst
 
       <StyledDialogContent dividers>
         <Image
-          src={monsterImage}
-          alt={quest.monsterName}
+          src={monster.bestiary_monster_image_url}
+          alt={monster.name}
           width={200}
           height={200}
-          style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
+          style={{
+            margin: "0 auto",
+            borderRadius: "8px",
+            border: "4px solid #ccc",
+          }}
         />
-        <StyledMonsterName>
-          {quest.monsterName} 1頭の狩猟
-        </StyledMonsterName>
+        <StyledMonsterName>{monster.name} 1頭の狩猟</StyledMonsterName>
 
         <Link href={`/quests/${quest.id}/battleStart`}>
           <BasicButton text="クエスト出発" />

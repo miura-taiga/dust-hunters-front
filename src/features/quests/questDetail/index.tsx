@@ -1,16 +1,26 @@
-import React from "react";
+"use client";
+
 import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
-import { BasicButton } from "@/components/layouts";
+import { BasicButton, Loading } from "@/components/layouts";
+import useFetchData from "@/lib/useFetchData";
+import { Settings } from "@/config";
 
 interface QuestDetailProps {
-  quest: {
-    id: number;
-    title: string;
-    monsterName: string;
-  };
-  monsterImage: string;
+  questId: number;
+}
+
+interface Quest {
+  id: number;
+  title: string;
+  monster_id: number;
+}
+
+interface Monster {
+  id: number;
+  name: string;
+  bestiary_monster_image_url: string;
 }
 
 const QuestDetailContainer = styled.div`
@@ -45,26 +55,37 @@ const MonsterImage = styled(Image)`
 const MonsterName = styled.p`
   text-align: center;
   font-size: 1.25rem;
+  margin-top: 20px;
 `;
 
 const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monsterImage }) => {
+const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
+  const quest = useFetchData<Quest>(`${Settings.API_URL}/api/v1/quests/${questId}`);
+  const monster = useFetchData<Monster>(
+    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
+  );
+
+  if (!quest || !monster) {
+    return <Loading />;
+  }
+
   return (
     <QuestDetailContainer>
       <TitleContainer>
         <Title>{quest.title}</Title>
       </TitleContainer>
       <MonsterImage
-        src={monsterImage}
-        alt={quest.monsterName}
+        src={monster.bestiary_monster_image_url}
+        alt={monster.name}
         width={250}
         height={250}
         className="border-4 border-gray-300 rounded-lg"
+        style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
       />
-      <MonsterName>{quest.monsterName} 1頭の狩猟</MonsterName>
+      <MonsterName>{monster.name} 1頭の狩猟</MonsterName>
       <ButtonContainer>
         <Link href={`/quests/${quest.id}/battleStart`}>
           <BasicButton text="クエスト出発" />

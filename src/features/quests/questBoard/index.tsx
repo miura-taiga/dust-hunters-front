@@ -1,6 +1,11 @@
-import React from 'react';
-import styled from '@emotion/styled';
+"use client";
+
+import React, { useState } from "react";
+import styled from "@emotion/styled";
 import { QuestItem } from "@/features/quests";
+import { Loading } from "@/components/layouts";
+import useFetchData from "@/lib/useFetchData";
+import { Settings } from "@/config";
 
 interface Quest {
   id: number;
@@ -9,14 +14,13 @@ interface Quest {
 }
 
 interface QuestBoardProps {
-  quests: Quest[];
-  selectedQuestId: number | null;
-  onQuestClick: (quest: Quest) => void;
+  onQuestClick: (questId: number) => void;
+  isMobile: boolean;
 }
 
 const QuestBoardContainer = styled.div`
   background-color: rgba(30, 58, 138, 0.8);
-  border: 3px solid #C0C0C0;
+  border: 3px solid #c0c0c0;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -35,22 +39,48 @@ const Title = styled.h6`
   padding-bottom: 10px;
 `;
 
-const QuestBoard: React.FC<QuestBoardProps> = ({ quests, selectedQuestId, onQuestClick }) => {
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const ListItem = styled.li`
+  margin-bottom: 10px;
+`;
+
+interface QuestBoardProps {
+  onQuestClick: (questId: number) => void;
+}
+
+const QuestBoard: React.FC<QuestBoardProps> = ({ onQuestClick }) => {
+  const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
+  const [selectedQuestId, setSelectedQuestId] = useState<number | null>(null);
+
+  if (!quests) {
+    return <Loading />;
+  }
+
+  const handleQuestClick = (quest: Quest) => {
+    setSelectedQuestId(quest.id);
+    onQuestClick(quest.id);
+  };
+
   return (
     <QuestBoardContainer>
       <TitleContainer>
         <Title>クエスト掲示板</Title>
       </TitleContainer>
-      <ul>
+      <List>
         {quests.map((quest) => (
-          <QuestItem
-            key={quest.id}
-            quest={quest}
-            isSelected={selectedQuestId === quest.id}
-            onClick={() => onQuestClick(quest)}
-          />
+          <ListItem key={quest.id}>
+            <QuestItem
+              quest={quest}
+              isSelected={selectedQuestId === quest.id}
+              onClick={() => handleQuestClick(quest)}
+            />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </QuestBoardContainer>
   );
 };

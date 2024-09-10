@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const logout = useCallback(() => { // logout関数をuseCallbackでラップ
+  const logout = useCallback(() => {
     setGoogleUserId(null);
     setTokenState(null);
     setCurrentUser(null);
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     if (token) {
       setTokenState(token);
-      localStorage.setItem("authToken", token); // トークンを設定後に保存
+      localStorage.setItem("authToken", token);
 
       try {
         const decoded = jwtDecode<JwtPayload>(token);
@@ -103,7 +103,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [logout]);
 
   useEffect(() => {
-    const publicPaths = ["/login", "/top"];
+    const publicPaths = "/top";
     if (!isCheckingToken && !token && !publicPaths.includes(pathname)) {
       router.push("/top?flash=warning&message=ログインが必要です。");
     }
