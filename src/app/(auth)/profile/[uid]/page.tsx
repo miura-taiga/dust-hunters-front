@@ -15,7 +15,7 @@ import { SuccessMessage, ErrorMessage } from "@/components/layouts/messages";
 import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
-import { Progress } from "@/components/layouts";
+import { Loading } from "@/components/layouts";
 import { GameContainerWrapper } from "@/features/quests";
 import styled from "@emotion/styled";
 
@@ -146,7 +146,7 @@ export default function UserProfile() {
     }
   };
 
-  if (!userData) return <Progress />;
+  if (!userData) return <Loading />;
 
   return (
     <GameContainerWrapper>
