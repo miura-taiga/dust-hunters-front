@@ -2,7 +2,8 @@ import BasicButton from "./basicButton";
 import BottomNavigation from "./bottomNavigation";
 import Headers from "./headers";
 import Footers from "./footers";
-import Loading from "./loading"
+import Loading from "./loading";
+import SecondaryButton from "./secondaryButton";
 
 export {
   BasicButton,
@@ -10,4 +11,5 @@ export {
   Headers,
   Footers,
   Loading,
+  SecondaryButton,
 };
