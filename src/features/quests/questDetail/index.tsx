@@ -7,6 +7,10 @@ import { BasicButton, Loading } from "@/components/layouts";
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 
+interface QuestDetailProps {
+  questId: number;
+}
+
 interface Quest {
   id: number;
   title: string;
@@ -57,10 +61,10 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const QuestDetail: React.FC = () => {
-  const quest = useFetchData<Quest>(`${Settings.API_URL}/api/v1/quests/1`);
+const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
+  const quest = useFetchData<Quest>(`${Settings.API_URL}/api/v1/quests/${questId}`);
   const monster = useFetchData<Monster>(
-    `${Settings.API_URL}/api/v1/monsters/1`
+    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
   );
 
   if (!quest || !monster) {

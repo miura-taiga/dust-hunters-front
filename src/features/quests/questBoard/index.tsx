@@ -43,7 +43,11 @@ const ListItem = styled.li`
   margin-bottom: 10px;
 `;
 
-const QuestBoard: React.FC = () => {
+interface QuestBoardProps {
+  onQuestClick: (questId: number) => void;
+}
+
+const QuestBoard: React.FC<QuestBoardProps> = ({ onQuestClick }) => {
   const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
   const [selectedQuestId, setSelectedQuestId] = useState<number | null>(null);
 
@@ -53,6 +57,7 @@ const QuestBoard: React.FC = () => {
 
   const handleQuestClick = (quest: Quest) => {
     setSelectedQuestId(quest.id);
+    onQuestClick(quest.id);
   };
 
   return (
