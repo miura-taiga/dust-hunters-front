@@ -44,11 +44,11 @@ const ListItem = styled.li`
 `;
 
 const QuestBoard: React.FC = () => {
-  const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`); // データを取得
+  const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
   const [selectedQuestId, setSelectedQuestId] = useState<number | null>(null);
 
   if (!quests) {
-    return <Loading />; // ローディング中
+    return <Loading />;
   }
 
   const handleQuestClick = (quest: Quest) => {
