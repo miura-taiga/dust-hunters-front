@@ -55,6 +55,7 @@ const MonsterImage = styled(Image)`
 const MonsterName = styled.p`
   text-align: center;
   font-size: 1.25rem;
+  margin-top: 20px;
 `;
 
 const ButtonContainer = styled.div`
@@ -82,6 +83,7 @@ const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
         width={250}
         height={250}
         className="border-4 border-gray-300 rounded-lg"
+        style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
       />
       <MonsterName>{monster.name} 1頭の狩猟</MonsterName>
       <ButtonContainer>
