@@ -13,9 +13,14 @@ interface Quest {
   monsterName: string;
 }
 
+interface QuestBoardProps {
+  onQuestClick: (questId: number) => void;
+  isMobile: boolean;
+}
+
 const QuestBoardContainer = styled.div`
   background-color: rgba(30, 58, 138, 0.8);
-  border: 3px solid #C0C0C0;
+  border: 3px solid #c0c0c0;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
