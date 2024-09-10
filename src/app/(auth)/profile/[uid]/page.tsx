@@ -12,17 +12,17 @@ import {
   CardContent,
 } from "@mui/material";
 import { SuccessMessage, ErrorMessage } from "@/components/layouts/messages";
-import { useAuth } from "@/contexts/auth";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
 import { Loading } from "@/components/layouts";
 import { GameContainerWrapper } from "@/features/quests";
 import styled from "@emotion/styled";
+import useFetchData from "@/lib/useFetchData";
+import fetcher from "@/lib/fetcher";
 
 interface UserData {
   name: string;
   gender: string;
-  errors?: string[];
 }
 
 const StyledCard = styled(Card)`
@@ -62,7 +62,7 @@ const textFieldSx = {
     backgroundColor: "transparent",
     "&:-webkit-autofill": {
       WebkitBoxShadow: `0 0 0 100px ${fieldHighlightColor} inset`,
-      WebkitTextFillColor: "white", 
+      WebkitTextFillColor: "white",
     },
   },
 };
@@ -75,37 +75,14 @@ const genderOptions: { [key: string]: string } = {
 
 export default function UserProfile() {
   const uid = UserUid();
-  const { token } = useAuth();
+  const userData = useFetchData<UserData>(
+    uid ? `${Settings.API_URL}/api/v1/users/${uid}` : ""
+  );
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
-
-  useEffect(() => {
-    if (token && uid) {
-      (async () => {
-        try {
-          const response = await fetch(`${Settings.API_URL}/api/v1/users/${uid}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (response.ok) {
-            const data: UserData = await response.json();
-            setUserData(data);
-          } else {
-            const errorData = await response.json();
-            alert(`データ取得に失敗しました: ${errorData.errors?.join(", ") || "不明なエラー"}`);
-          }
-        } catch (error) {
-          alert("データ取得中にエラーが発生しました。");
-        }
-      })();
-    }
-  }, [token, uid]);
 
   useEffect(() => {
     if (userData) {
@@ -127,22 +104,21 @@ export default function UserProfile() {
   const handleSubmit = async () => {
     const genderInEnglish = genderOptions[gender as keyof typeof genderOptions];
     try {
-      const response = await fetch(`${Settings.API_URL}/api/v1/users/${uid}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ user: { name, gender: genderInEnglish } }),
-      });
+      const response = await fetcher(
+        `${Settings.API_URL}/api/v1/users/${uid}`,
+        "PATCH",
+        {
+          user: { name, gender: genderInEnglish },
+        }
+      );
 
-      if (response.ok) {
+      if (response) {
         setShowSuccessMessage(true);
       } else {
         setShowErrorMessage(true);
       }
     } catch (error) {
-      alert("プロフィール編集に失敗しました");
+      setShowErrorMessage(true);
     }
   };
 
