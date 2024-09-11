@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { QuestItem } from "@/features/quests";
 import { Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
 
 interface Quest {
   id: number;
@@ -14,6 +12,7 @@ interface Quest {
 }
 
 interface QuestBoardProps {
+  quests: Quest[];
   onQuestClick: (questId: number) => void;
   isMobile: boolean;
 }
@@ -48,12 +47,7 @@ const ListItem = styled.li`
   margin-bottom: 10px;
 `;
 
-interface QuestBoardProps {
-  onQuestClick: (questId: number) => void;
-}
-
-const QuestBoard: React.FC<QuestBoardProps> = ({ onQuestClick }) => {
-  const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
+const QuestBoard: React.FC<QuestBoardProps> = ({ quests, onQuestClick }) => {
   const [selectedQuestId, setSelectedQuestId] = useState<number | null>(null);
 
   if (!quests) {

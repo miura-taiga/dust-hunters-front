@@ -10,13 +10,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
 import styled from "@emotion/styled";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
 
 interface MobileDialogProps {
   open: boolean;
   onClose: () => void;
   questId: number;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
 }
 
 interface Quest {
@@ -67,15 +67,9 @@ const CloseButton = styled(IconButton)`
 const MobileDialog: React.FC<MobileDialogProps> = ({
   open,
   onClose,
-  questId,
+  quest,
+  monster,
 }) => {
-  const quest = useFetchData<Quest>(
-    `${Settings.API_URL}/api/v1/quests/${questId}`
-  );
-  const monster = useFetchData<Monster>(
-    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
-  );
-
   if (!quest || !monster) {
     return <Loading />;
   }

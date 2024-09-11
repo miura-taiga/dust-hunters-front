@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
 
 interface QuestDetailProps {
   questId: number;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
 }
 
 interface Quest {
@@ -62,12 +62,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
-  const quest = useFetchData<Quest>(`${Settings.API_URL}/api/v1/quests/${questId}`);
-  const monster = useFetchData<Monster>(
-    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
-  );
-
+const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monster }) => {
   if (!quest || !monster) {
     return <Loading />;
   }
