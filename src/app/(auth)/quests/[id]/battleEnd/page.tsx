@@ -2,17 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { BasicButton, XShareButton, Loading } from "@/components/layouts";
+import { BasicButton, Loading } from "@/components/layouts";
+import XShareButton from "@/features/xShareButton"
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-
-interface Monster {
-  id: number;
-  name: string;
-  end_battle_image_url: string;
-}
+import { Monster } from "@/types";
 
 const BattleEnd = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);

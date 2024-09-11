@@ -4,7 +4,6 @@ import Headers from "./headers";
 import Footers from "./footers";
 import Loading from "./loading";
 import SecondaryButton from "./secondaryButton";
-import XShareButton from "./xShareButton";
 
 export {
   BasicButton,
@@ -13,5 +12,4 @@ export {
   Footers,
   Loading,
   SecondaryButton,
-  XShareButton,
 };

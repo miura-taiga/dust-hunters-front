@@ -1,3 +1,4 @@
 import LoginButton from "./loginButton";
+import XShareButton from "./xShareButton"
 
-export { LoginButton }
+export { LoginButton, XShareButton }

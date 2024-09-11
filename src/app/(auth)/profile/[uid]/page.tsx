@@ -19,11 +19,7 @@ import { GameContainerWrapper } from "@/features/quests";
 import styled from "@emotion/styled";
 import useFetchData from "@/lib/useFetchData";
 import fetcher from "@/lib/fetcher";
-
-interface UserData {
-  name: string;
-  gender: string;
-}
+import { UserData } from "@/types";
 
 const StyledCard = styled(Card)`
   background-color: rgba(30, 58, 138, 0.8);

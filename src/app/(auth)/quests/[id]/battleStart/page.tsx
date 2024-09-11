@@ -7,12 +7,7 @@ import { BasicButton, SecondaryButton, Loading } from "@/components/layouts";
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams, useRouter } from "next/navigation";
-
-interface Monster {
-  id: number;
-  name: string;
-  start_battle_image_url: string;
-}
+import { Monster } from "@/types";
 
 const BattleStart = () => {
   const [countdown, setCountdown] = useState<number>(300);
