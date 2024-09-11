@@ -8,6 +8,10 @@ import {
   MobileDialog,
 } from "@/features/quests";
 import { SuccessMessage } from "@/components/layouts/messages";
+import useFetchData from "@/lib/useFetchData";
+import { Settings } from "@/config";
+import { Loading } from "@/components/layouts";
+import { Quest, Monster } from "@/types";
 
 export default function QuestPage() {
   const [selectedQuestId, setSelectedQuestId] = useState<number>(1);
@@ -15,6 +19,11 @@ export default function QuestPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+
+  const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
+  const monsters = useFetchData<Monster[]>(
+    `${Settings.API_URL}/api/v1/monsters`
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,6 +55,10 @@ export default function QuestPage() {
     }
   };
 
+  if (!quests || !monsters) {
+    return <Loading />;
+  }
+
   return (
     <GameContainerWrapper>
       {/* 成功メッセージの表示 */}
@@ -59,11 +72,21 @@ export default function QuestPage() {
       {/* レイアウト */}
       <div className="w-full max-w-6xl pt-4 px-4">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
-          {/* QuestBoardにisMobileを渡す */}
-          <QuestBoard onQuestClick={handleQuestClick} isMobile={isMobile} />
+          {/* QuestBoardにクエストデータを渡す */}
+          <QuestBoard
+            quests={quests}
+            onQuestClick={handleQuestClick}
+            isMobile={isMobile}
+          />
 
           {/* スマホではない場合はQuestDetailを表示 */}
-          {!isMobile && <QuestDetail questId={selectedQuestId} />}
+          {!isMobile && (
+            <QuestDetail
+              questId={selectedQuestId}
+              quest={quests.find((q) => q.id === selectedQuestId)}
+              monster={monsters.find((m) => m.id === selectedQuestId)}
+            />
+          )}
         </div>
       </div>
 
@@ -73,6 +96,8 @@ export default function QuestPage() {
           open={open}
           onClose={() => setOpen(false)}
           questId={selectedQuestId}
+          quest={quests.find((q) => q.id === selectedQuestId)}
+          monster={monsters.find((m) => m.id === selectedQuestId)}
         />
       )}
     </GameContainerWrapper>

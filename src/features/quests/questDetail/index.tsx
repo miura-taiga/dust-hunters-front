@@ -4,23 +4,12 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
+import { Quest, Monster } from "@/types";
 
 interface QuestDetailProps {
   questId: number;
-}
-
-interface Quest {
-  id: number;
-  title: string;
-  monster_id: number;
-}
-
-interface Monster {
-  id: number;
-  name: string;
-  bestiary_monster_image_url: string;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
 }
 
 const QuestDetailContainer = styled.div`
@@ -62,12 +51,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
-  const quest = useFetchData<Quest>(`${Settings.API_URL}/api/v1/quests/${questId}`);
-  const monster = useFetchData<Monster>(
-    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
-  );
-
+const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monster }) => {
   if (!quest || !monster) {
     return <Loading />;
   }
@@ -83,7 +67,11 @@ const QuestDetail: React.FC<QuestDetailProps> = ({ questId }) => {
         width={250}
         height={250}
         className="border-4 border-gray-300 rounded-lg"
-        style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
+        style={{
+          margin: "0 auto",
+          borderRadius: "8px",
+          border: "4px solid #ccc",
+        }}
       />
       <MonsterName>{monster.name} 1頭の狩猟</MonsterName>
       <ButtonContainer>

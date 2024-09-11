@@ -10,25 +10,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
 import styled from "@emotion/styled";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
+import { Quest, Monster } from "@/types";
 
 interface MobileDialogProps {
   open: boolean;
   onClose: () => void;
   questId: number;
-}
-
-interface Quest {
-  id: number;
-  title: string;
-  monster_id: number;
-}
-
-interface Monster {
-  id: number;
-  name: string;
-  bestiary_monster_image_url: string;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
 }
 
 const StyledDialogTitle = styled(DialogTitle)`
@@ -67,15 +56,9 @@ const CloseButton = styled(IconButton)`
 const MobileDialog: React.FC<MobileDialogProps> = ({
   open,
   onClose,
-  questId,
+  quest,
+  monster,
 }) => {
-  const quest = useFetchData<Quest>(
-    `${Settings.API_URL}/api/v1/quests/${questId}`
-  );
-  const monster = useFetchData<Monster>(
-    quest ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
-  );
-
   if (!quest || !monster) {
     return <Loading />;
   }
