@@ -4,12 +4,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { QuestItem } from "@/features/quests";
 import { Loading } from "@/components/layouts";
-
-interface Quest {
-  id: number;
-  title: string;
-  monsterName: string;
-}
+import { Quest } from "@/types";
 
 interface QuestBoardProps {
   quests: Quest[];

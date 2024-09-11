@@ -4,23 +4,12 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
+import { Quest, Monster } from "@/types";
 
 interface QuestDetailProps {
   questId: number;
   quest: Quest | undefined;
   monster: Monster | undefined;
-}
-
-interface Quest {
-  id: number;
-  title: string;
-  monster_id: number;
-}
-
-interface Monster {
-  id: number;
-  name: string;
-  bestiary_monster_image_url: string;
 }
 
 const QuestDetailContainer = styled.div`
@@ -78,7 +67,11 @@ const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monster }) => {
         width={250}
         height={250}
         className="border-4 border-gray-300 rounded-lg"
-        style={{ margin: '0 auto', borderRadius: '8px', border: '4px solid #ccc' }}
+        style={{
+          margin: "0 auto",
+          borderRadius: "8px",
+          border: "4px solid #ccc",
+        }}
       />
       <MonsterName>{monster.name} 1頭の狩猟</MonsterName>
       <ButtonContainer>

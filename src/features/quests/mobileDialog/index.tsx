@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
 import styled from "@emotion/styled";
+import { Quest, Monster } from "@/types";
 
 interface MobileDialogProps {
   open: boolean;
@@ -17,18 +18,6 @@ interface MobileDialogProps {
   questId: number;
   quest: Quest | undefined;
   monster: Monster | undefined;
-}
-
-interface Quest {
-  id: number;
-  title: string;
-  monster_id: number;
-}
-
-interface Monster {
-  id: number;
-  name: string;
-  bestiary_monster_image_url: string;
 }
 
 const StyledDialogTitle = styled(DialogTitle)`

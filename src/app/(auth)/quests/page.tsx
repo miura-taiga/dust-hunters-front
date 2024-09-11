@@ -11,19 +11,7 @@ import { SuccessMessage } from "@/components/layouts/messages";
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { Loading } from "@/components/layouts";
-
-interface Quest {
-  id: number;
-  title: string;
-  monster_id: number;
-  monsterName: string;
-}
-
-interface Monster {
-  id: number;
-  name: string;
-  bestiary_monster_image_url: string;
-}
+import { Quest, Monster } from "@/types";
 
 export default function QuestPage() {
   const [selectedQuestId, setSelectedQuestId] = useState<number>(1);
