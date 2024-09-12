@@ -27,7 +27,7 @@ export default function SimpleBottomNavigation() {
         router.push("/quests");
         break;
       case 2:
-        router.push("/guildCards/encyclopedias");
+        router.push(`/guildCards/encyclopedias/${googleUserId}`);
         break;
       case 3:
         if (googleUserId) {
