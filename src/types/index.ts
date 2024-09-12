@@ -17,3 +17,8 @@ export interface UserData {
   name: string;
   gender: string;
 }
+
+export interface GuildCard {
+  defeat_count: number;
+  monster: Monster;
+}
