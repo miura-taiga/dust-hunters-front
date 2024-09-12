@@ -38,7 +38,7 @@ export default function MonsterEncyclopedia() {
                 >
                   {monster.name}
                 </Typography>
-                <div className="border-b border-gray-400 w-full mb-4" />
+                <div className="border-b border-white w-full mb-4" />
                 <CardMedia
                   component="img"
                   height="300"
@@ -54,6 +54,7 @@ export default function MonsterEncyclopedia() {
                 <Typography
                   variant="body2"
                   className="text-white text-center mb-2"
+                  fontSize={"20px"}
                 >
                   討伐数: {monster.kills}
                 </Typography>
