@@ -68,6 +68,11 @@ export default function QuestPage() {
           onClose={() => setShowSuccessMessage(false)}
         />
       )}
+      <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
+        <p className="text-2xl sm:text-2xl md:text-5xl bg-black bg-opacity-50 p-4 rounded-md mt-2 sm:mb-2">
+          クエスト一覧
+        </p>
+      </div>
 
       {/* レイアウト */}
       <div className="w-full max-w-6xl pt-4 px-4">
