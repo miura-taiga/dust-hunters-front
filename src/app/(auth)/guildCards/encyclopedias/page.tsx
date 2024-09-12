@@ -30,7 +30,7 @@ export default function MonsterEncyclopedia() {
         <Grid container spacing={8} sx={{ marginTop: "76px" }}>
           {monsters.map((monster) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={monster.id}>
-              <Card className="bg-blue-900 bg-opacity-80 text-white h-full max-w-[300px] mx-auto border-4 border-gray-300 rounded-lg shadow-lg p-4">
+              <Card className="bg-blue-900 bg-opacity-80 text-white h-full max-w-[300px] mx-auto border-4 border-gray-300 rounded-xl shadow-lg p-4">
                 <Typography
                   variant="h6"
                   component="div"
@@ -44,7 +44,7 @@ export default function MonsterEncyclopedia() {
                   height="300"
                   image={defaultImage}
                   alt={monster.name}
-                  className="rounded-lg mx-auto mb-4 border-2 border-gray-300"
+                  className="rounded-xl mx-auto mb-4 border-2 border-gray-300"
                   style={{
                     width: "100%",
                     maxWidth: "220px",
