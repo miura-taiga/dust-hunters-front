@@ -14,7 +14,7 @@ import {
 import { SuccessMessage, ErrorMessage } from "@/components/layouts/messages";
 import { Settings } from "@/config";
 import { UserUid } from "@/hooks/userUid";
-import { Loading } from "@/components/layouts";
+import { BasicButton, Loading } from "@/components/layouts";
 import { GameContainerWrapper } from "@/features/quests";
 import styled from "@emotion/styled";
 import useFetchData from "@/lib/useFetchData";
@@ -153,7 +153,11 @@ export default function UserProfile() {
             >
               プロフィール
             </Typography>
-            <Stack spacing={2}>
+
+            {/* Stackに中央揃えのスタイルを追加 */}
+            <Stack spacing={2} alignItems="center" justifyContent="center">
+              {" "}
+              {/* 中央揃えの設定 */}
               <TextField
                 fullWidth
                 name="name"
@@ -195,14 +199,18 @@ export default function UserProfile() {
                   </MenuItem>
                 ))}
               </TextField>
-              <Button
-                variant="contained"
-                fullWidth
-                color="primary"
+              <BasicButton
+                text="保存"
                 onClick={handleSubmit}
-              >
-                保存
-              </Button>
+                sx={{
+                  padding: "8px 16px",
+                  fontSize: "18px",
+                  minWidth: "150px",
+                  maxWidth: "200px",
+                  margin: "10px auto",
+                  display: "block",
+                }}
+              />
             </Stack>
           </CardContent>
         </StyledCard>
