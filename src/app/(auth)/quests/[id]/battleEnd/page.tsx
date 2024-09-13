@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { BasicButton, Loading } from "@/components/layouts";
-import XShareButton from "@/features/xShareButton"
+import XShareButton from "@/features/xShareButton";
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams } from "next/navigation";
@@ -59,7 +59,7 @@ const BattleEnd = () => {
             <Link href={"/quests"}>
               <BasicButton text="クエスト一覧" />
             </Link>
-            <XShareButton text="Xに共有する" />
+            <XShareButton imageUrl={monster.end_battle_image_url} name={monster.name} />
           </div>
         </>
       )}

@@ -1,36 +1,43 @@
-"use client";
+import Head from "next/head";
+import { BlackButton } from "@/components/layouts";
 
-import { Button, ButtonProps, styled } from "@mui/material";
-
-const BlackStyledButton = styled(Button)({
-  backgroundColor: "#000",
-  color: "#fff",
-  fontWeight: "bold",
-  fontSize: "1.2rem",
-  padding: "12px 24px",
-  border: "2px solid #C0C0C0",
-  borderRadius: "10px",
-  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.6)",
-  transition: "transform 0.2s, background-color 0.2s, box-shadow 0.2s",
-  "&:hover": {
-    backgroundColor: "#333",
-    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.8)",
-    transform: "scale(1.05)",
-  },
-  "&:active": {
-    backgroundColor: "#111",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.8)",
-    transform: "scale(0.95)",
-  },
-});
-
-interface BasicButtonProps extends ButtonProps {
-  text: string;
+interface XShareButtonProps {
+  imageUrl: string;
+  name: string;
 }
 
-const XShareButton: React.FC<BasicButtonProps> = ({ text, ...props }) => {
-  return <BlackStyledButton {...props}>{text}</BlackStyledButton>;
-};
+export default function XShareButton({ imageUrl, name }: XShareButtonProps) {
+  const handleShare = () => {
+    const appUrl = "https://dust-hunters-front.vercel.app";
+    const text = `${name}を討伐したよ！`;
+    const hashtags = "DustHunters";
 
-export default XShareButton;
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      text
+    )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
+      hashtags
+    )}`;
+
+    window.open(shareUrl, "_blank");
+  };
+
+  return (
+    <>
+      <Head>
+        <meta property="og:title" content={`${name}を討伐したよ！`} />
+        <meta property="og:description" content="討伐完了！詳細はこちら。" />
+        <meta
+          property="og:image"
+          content={`https://dust-hunters-front.vercel.app/${imageUrl}`}
+        />
+        <meta
+          property="og:url"
+          content="https://dust-hunters-front.vercel.app"
+        />
+      </Head>
+      <div>
+        <BlackButton text={"Xに共有する"} onClick={handleShare} />
+      </div>
+    </>
+  );
+}
