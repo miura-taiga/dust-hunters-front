@@ -13,7 +13,7 @@ import { useAuth } from "@/contexts/auth";
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();
-  const [countdown, setCountdown] = useState<number>(3);
+  const [countdown, setCountdown] = useState<number>(5);
   const [isStarted, setIsStarted] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -36,6 +36,13 @@ const BattleStart = () => {
       setIsTimeUp(true);
     }
   }, [countdown, isStarted]);
+
+  useEffect(() => {
+    if (countdown === 3) {
+      const audio = new Audio("/sounds/Countdown06-2.mp3");
+      audio.play();
+    }
+  }, [countdown]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
