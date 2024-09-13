@@ -22,3 +22,16 @@ export interface GuildCard {
   defeat_count: number;
   monster: Monster;
 }
+
+export interface AuthContextType {
+  token: string | null;
+  googleUserId: string | null;
+  currentUser: any;
+  setToken: (token: string) => void;
+  logout: () => void;
+}
+
+export interface JwtPayload {
+  google_user_id: string;
+  exp: number;
+}

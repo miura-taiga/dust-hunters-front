@@ -8,19 +8,21 @@ import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams, useRouter } from "next/navigation";
 import { Monster } from "@/types";
+import fetcher from "@/lib/fetcher";
+import { useAuth } from "@/contexts/auth";
 
 const BattleStart = () => {
-  const [countdown, setCountdown] = useState<number>(300);
+  const { googleUserId } = useAuth();
+  const [countdown, setCountdown] = useState<number>(3);
   const [isStarted, setIsStarted] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
   const router = useRouter();
   const params = useParams();
   const questId = params.id;
 
-  const monster = useFetchData<Monster>(
+  const monster: Monster | undefined = useFetchData<Monster>(
     questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
   );
 
@@ -46,6 +48,18 @@ const BattleStart = () => {
   const handleImageLoad = () => {
     setIsImageLoaded(true);
     setIsLoading(false);
+  };
+
+  const handleAttack = async () => {
+    if (!googleUserId || !monster) return;
+
+    await fetcher(
+      `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
+      "POST",
+      { monster_id: monster.id }
+    );
+
+    router.push(`/quests/${questId}/battleEnd`);
   };
 
   if (!monster) {
@@ -79,9 +93,7 @@ const BattleStart = () => {
             {!isStarted ? (
               <BasicButton
                 text="戦闘開始"
-                onClick={() => {
-                  setIsStarted(true);
-                }}
+                onClick={() => setIsStarted(true)}
                 style={{
                   fontSize: "34px",
                   padding: "16px 42px",
@@ -95,9 +107,7 @@ const BattleStart = () => {
             ) : (
               <SecondaryButton
                 text="攻撃する"
-                onClick={() => {
-                  router.push(`/quests/${questId}/battleEnd`);
-                }}
+                onClick={handleAttack}
                 style={{
                   fontSize: "34px",
                   padding: "16px 42px",
