@@ -18,7 +18,6 @@ const BattleStart = () => {
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
   const params = useParams();
   const questId = params.id;
@@ -52,33 +51,15 @@ const BattleStart = () => {
   };
 
   const handleAttack = async () => {
-    try {
-      if (!googleUserId) {
-        throw new Error("ユーザーIDが取得できませんでした。");
-      }
+    if (!googleUserId || !monster) return;
 
-      if (!monster) {
-        throw new Error("モンスターデータが取得できませんでした。");
-      }
+    await fetcher(
+      `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
+      "POST",
+      { monster_id: monster.id }
+    );
 
-      const response = await fetcher(
-        `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
-        "POST",
-        {
-          monster_id: monster.id,
-        }
-      );
-
-      if (response) {
-        router.push(`/quests/${questId}/battleEnd`);
-      } else {
-        setErrorMessage("攻撃に失敗しました。もう一度お試しください。");
-      }
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error ? error.message : "エラーが発生しました"
-      );
-    }
+    router.push(`/quests/${questId}/battleEnd`);
   };
 
   if (!monster) {
@@ -112,9 +93,7 @@ const BattleStart = () => {
             {!isStarted ? (
               <BasicButton
                 text="戦闘開始"
-                onClick={() => {
-                  setIsStarted(true);
-                }}
+                onClick={() => setIsStarted(true)}
                 style={{
                   fontSize: "34px",
                   padding: "16px 42px",
@@ -126,22 +105,15 @@ const BattleStart = () => {
                 {formatTime(countdown)}
               </Typography>
             ) : (
-              <>
-                {errorMessage && (
-                  <Typography variant="body1" color="error">
-                    {errorMessage}
-                  </Typography>
-                )}
-                <SecondaryButton
-                  text="攻撃する"
-                  onClick={handleAttack}
-                  style={{
-                    fontSize: "34px",
-                    padding: "16px 42px",
-                    marginTop: "400px",
-                  }}
-                />
-              </>
+              <SecondaryButton
+                text="攻撃する"
+                onClick={handleAttack}
+                style={{
+                  fontSize: "34px",
+                  padding: "16px 42px",
+                  marginTop: "400px",
+                }}
+              />
             )}
           </div>
         </>
