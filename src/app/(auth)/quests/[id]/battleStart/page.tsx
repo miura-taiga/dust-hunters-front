@@ -13,7 +13,7 @@ import { useAuth } from "@/contexts/auth";
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();
-  const [countdown, setCountdown] = useState<number>(5);
+  const [countdown, setCountdown] = useState<number>(300);
   const [isStarted, setIsStarted] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
