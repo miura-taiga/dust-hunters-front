@@ -8,19 +8,22 @@ import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams, useRouter } from "next/navigation";
 import { Monster } from "@/types";
+import fetcher from "@/lib/fetcher";
+import { useAuth } from "@/contexts/auth";
 
 const BattleStart = () => {
-  const [countdown, setCountdown] = useState<number>(300);
+  const { googleUserId } = useAuth();
+  const [countdown, setCountdown] = useState<number>(3);
   const [isStarted, setIsStarted] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
   const params = useParams();
   const questId = params.id;
 
-  const monster = useFetchData<Monster>(
+  const monster: Monster | undefined = useFetchData<Monster>(
     questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
   );
 
@@ -46,6 +49,36 @@ const BattleStart = () => {
   const handleImageLoad = () => {
     setIsImageLoaded(true);
     setIsLoading(false);
+  };
+
+  const handleAttack = async () => {
+    try {
+      if (!googleUserId) {
+        throw new Error("ユーザーIDが取得できませんでした。");
+      }
+
+      if (!monster) {
+        throw new Error("モンスターデータが取得できませんでした。");
+      }
+
+      const response = await fetcher(
+        `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
+        "POST",
+        {
+          monster_id: monster.id,
+        }
+      );
+
+      if (response) {
+        router.push(`/quests/${questId}/battleEnd`);
+      } else {
+        setErrorMessage("攻撃に失敗しました。もう一度お試しください。");
+      }
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "エラーが発生しました"
+      );
+    }
   };
 
   if (!monster) {
@@ -93,17 +126,22 @@ const BattleStart = () => {
                 {formatTime(countdown)}
               </Typography>
             ) : (
-              <SecondaryButton
-                text="攻撃する"
-                onClick={() => {
-                  router.push(`/quests/${questId}/battleEnd`);
-                }}
-                style={{
-                  fontSize: "34px",
-                  padding: "16px 42px",
-                  marginTop: "400px",
-                }}
-              />
+              <>
+                {errorMessage && (
+                  <Typography variant="body1" color="error">
+                    {errorMessage}
+                  </Typography>
+                )}
+                <SecondaryButton
+                  text="攻撃する"
+                  onClick={handleAttack}
+                  style={{
+                    fontSize: "34px",
+                    padding: "16px 42px",
+                    marginTop: "400px",
+                  }}
+                />
+              </>
             )}
           </div>
         </>

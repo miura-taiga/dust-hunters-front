@@ -4,19 +4,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode, useCa
 import { useRouter, usePathname } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { Settings } from "@/config";
-
-interface AuthContextType {
-  token: string | null;
-  googleUserId: string | null;
-  currentUser: any;
-  setToken: (token: string) => void;
-  logout: () => void;
-}
-
-interface JwtPayload {
-  google_user_id: string;
-  exp: number;
-}
+import { AuthContextType, JwtPayload } from "@/types"
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
