@@ -1,6 +1,6 @@
 const fetcher = async (
   url: string,
-  method: "GET" | "PATCH" = "GET",
+  method: "GET" | "PATCH" | "POST" = "GET",
   data?: any
 ): Promise<any> => {
   const token = localStorage.getItem("authToken");
@@ -17,7 +17,8 @@ const fetcher = async (
     },
   };
 
-  if (method === "PATCH" && data) {
+  // PATCHまたはPOSTの場合に、リクエストボディを設定
+  if ((method === "PATCH" || method === "POST") && data) {
     options.body = JSON.stringify(data);
   }
 
