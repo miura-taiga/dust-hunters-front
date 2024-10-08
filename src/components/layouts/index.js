@@ -5,6 +5,7 @@ import Footers from "./footers";
 import Loading from "./loading";
 import SecondaryButton from "./secondaryButton";
 import BlackButton from "./blackButton";
+import UserAvatar from "./userAvatar";
 
 export {
   BasicButton,
@@ -14,4 +15,5 @@ export {
   Loading,
   SecondaryButton,
   BlackButton,
+  UserAvatar,
 };
