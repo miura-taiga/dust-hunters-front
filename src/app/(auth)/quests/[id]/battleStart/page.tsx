@@ -66,6 +66,11 @@ const BattleStart = () => {
       { monster_id: monster.id }
     );
 
+    await fetcher(
+      `${Settings.API_URL}/api/v1/users/${googleUserId}/increment_hunter_rank`,
+      "PATCH"
+    );
+
     router.push(`/quests/${questId}/battleEnd`);
   };
 
