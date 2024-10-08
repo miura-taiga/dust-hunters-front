@@ -17,7 +17,6 @@ const fetcher = async (
     },
   };
 
-  // PATCHまたはPOSTの場合に、リクエストボディを設定
   if ((method === "PATCH" || method === "POST") && data) {
     options.body = JSON.stringify(data);
   }
