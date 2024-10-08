@@ -16,6 +16,7 @@ export interface Monster {
 export interface UserData {
   name: string;
   gender: string;
+  hunterRank: number;
 }
 
 export interface GuildCard {
