@@ -62,7 +62,7 @@ const BattleStart = () => {
 
     await fetcher(
       `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
-      "POST",
+      "PATCH",
       { monster_id: monster.id }
     );
 
