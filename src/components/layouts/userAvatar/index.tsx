@@ -30,6 +30,10 @@ const UserAvatar: FC = () => {
 
   const imageUrl = gender ? `/images/userAvatars/${gender}.jpg` : "";
 
+  if (!googleUserId) {
+    return null;
+  }
+
   return (
     <div className="fixed bottom-20 left-4 flex flex-col items-center z-50">
       {/* アバター */}
@@ -44,7 +48,7 @@ const UserAvatar: FC = () => {
           />
         )}
       </div>
-      {/* ハンターランク*/}
+      {/* ハンターランク */}
       {hunterRank !== null && (
         <div className="absolute bottom-[-8px] right-[-8px] bg-white text-[#1E3A8A] rounded-full w-12 h-8 flex items-center justify-center text-sm font-bold shadow-md">
           HR: {hunterRank}
