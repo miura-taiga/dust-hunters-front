@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BottomNavigation, UserAvatar } from "@/components/layouts";
@@ -18,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/images/favicon/favicon-192x192.png" />
+      </Head>
       <body className={inter.className}>
         <AuthProvider>
           <UserAvatar />
