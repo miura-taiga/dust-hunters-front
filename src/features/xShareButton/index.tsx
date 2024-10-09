@@ -1,34 +1,34 @@
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { BlackButton } from "@/components/layouts";
 import { Setting } from "@/config";
 import { XShareButtonProps } from "@/types";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const name = context.query.name || "Unknown";
-  const imageUrl = `${Setting.FRONT_URL}/images/layouts/DustHunters_logo.jpg`;
-
-  return {
-    props: {
-      name,
-      imageUrl,
-    },
-  };
-};
-
-export default function XShareButton({ name, imageUrl }: XShareButtonProps) {
+export default function XShareButton({ name }: XShareButtonProps) {
   const handleShare = () => {
     const appUrl = Setting.FRONT_URL;
     const text = `${name}を討伐完了！`;
     const hashtags = "DustHunters";
+
+    console.log("App URL:", appUrl);
+    console.log("Share Text:", text);
+    console.log("Hashtags:", hashtags);
+
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
       hashtags
     )}`;
 
+    console.log("Share URL:", shareUrl);
+
     window.open(shareUrl, "_blank");
   };
+
+  const imageUrl = `${Setting.FRONT_URL}/images/layouts/DustHunters_logo.jpg`;
+
+  console.log("Image URL:", imageUrl);
+  console.log("Setting.FRONT_URL:", Setting.FRONT_URL);
+  console.log("Page Title:", `${name}を討伐したよ！`);
 
   return (
     <>
