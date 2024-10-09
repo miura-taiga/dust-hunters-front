@@ -1,14 +1,26 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { BlackButton } from "@/components/layouts";
 import { Setting } from "@/config";
 import { XShareButtonProps } from "@/types";
 
-export default function XShareButton({ name }: XShareButtonProps) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const name = context.query.name || "Unknown";
+  const imageUrl = `${Setting.FRONT_URL}/images/layouts/DustHunters_logo.jpg`;
+
+  return {
+    props: {
+      name,
+      imageUrl,
+    },
+  };
+};
+
+export default function XShareButton({ name, imageUrl }: XShareButtonProps) {
   const handleShare = () => {
     const appUrl = Setting.FRONT_URL;
     const text = `${name}を討伐完了！`;
     const hashtags = "DustHunters";
-
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
@@ -17,8 +29,6 @@ export default function XShareButton({ name }: XShareButtonProps) {
 
     window.open(shareUrl, "_blank");
   };
-
-  const imageUrl = `${Setting.FRONT_URL}/images/layouts/Dust Hunters_logo.jpg`;
 
   return (
     <>

@@ -39,4 +39,5 @@ export interface JwtPayload {
 
 export interface XShareButtonProps {
   name: string;
+  imageUrl: string;
 }

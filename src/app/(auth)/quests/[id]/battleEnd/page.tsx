@@ -59,7 +59,7 @@ const BattleEnd = () => {
             <Link href={"/quests"}>
               <BasicButton text="クエスト一覧" />
             </Link>
-            <XShareButton name={monster.name} />
+            <XShareButton name={monster.name} imageUrl={""} />
           </div>
         </>
       )}
