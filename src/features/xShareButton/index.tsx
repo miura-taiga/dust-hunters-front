@@ -1,15 +1,12 @@
 import Head from "next/head";
 import { BlackButton } from "@/components/layouts";
+import { Setting } from "@/config";
+import { XShareButtonProps } from "@/types";
 
-interface XShareButtonProps {
-  imageUrl: string;
-  name: string;
-}
-
-export default function XShareButton({ imageUrl, name }: XShareButtonProps) {
+export default function XShareButton({ name }: XShareButtonProps) {
   const handleShare = () => {
-    const appUrl = "https://dust-hunters-front.vercel.app";
-    const text = `${name}を討伐したよ！`;
+    const appUrl = Setting.FRONT_URL;
+    const text = `${name}を討伐完了！`;
     const hashtags = "DustHunters";
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -21,19 +18,20 @@ export default function XShareButton({ imageUrl, name }: XShareButtonProps) {
     window.open(shareUrl, "_blank");
   };
 
+  const imageUrl = `${Setting.FRONT_URL}/images/layouts/Dust Hunters_logo.jpg`;
+
   return (
     <>
       <Head>
+        <title>{`${name}を討伐したよ！`}</title>
         <meta property="og:title" content={`${name}を討伐したよ！`} />
         <meta property="og:description" content="討伐完了！詳細はこちら。" />
-        <meta
-          property="og:image"
-          content={`https://dust-hunters-front.vercel.app/${imageUrl}`}
-        />
-        <meta
-          property="og:url"
-          content="https://dust-hunters-front.vercel.app"
-        />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:url" content={Setting.FRONT_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${name}を討伐したよ！`} />
+        <meta name="twitter:description" content="討伐完了！詳細はこちら。" />
+        <meta name="twitter:image" content={imageUrl} />
       </Head>
       <div>
         <BlackButton text={"Xに共有する"} onClick={handleShare} />
