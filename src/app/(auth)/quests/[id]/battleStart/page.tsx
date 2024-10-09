@@ -57,8 +57,19 @@ const BattleStart = () => {
     setIsLoading(false);
   };
 
+  const handleStartBattle = async () => {
+    if (!googleUserId || !questId) return;
+
+    await fetcher(
+      `${Settings.API_URL}/api/v1/user_quests`,
+      "POST",
+      { quest_id: questId }
+    );
+    setIsStarted(true);
+  };
+
   const handleAttack = async () => {
-    if (!googleUserId || !monster) return;
+    if (!googleUserId || !monster || !questId) return;
 
     await fetcher(
       `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
@@ -68,6 +79,11 @@ const BattleStart = () => {
 
     await fetcher(
       `${Settings.API_URL}/api/v1/users/${googleUserId}/increment_hunter_rank`,
+      "PATCH"
+    );
+
+    await fetcher(
+      `${Settings.API_URL}/api/v1/user_quests/${questId}/complete`,
       "PATCH"
     );
 
@@ -105,7 +121,7 @@ const BattleStart = () => {
             {!isStarted ? (
               <BasicButton
                 text="戦闘開始"
-                onClick={() => setIsStarted(true)}
+                onClick={handleStartBattle}
                 style={{
                   fontSize: "34px",
                   padding: "16px 42px",
