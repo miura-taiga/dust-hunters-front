@@ -24,7 +24,7 @@ export default function XShareButton({ name }: XShareButtonProps) {
     window.open(shareUrl, "_blank");
   };
 
-  const imageUrl = `${Setting.FRONT_URL}/images/layouts/DustHunters_logo.jpg`;
+  const imageUrl = `${Setting.FRONT_URL}/images/layouts/ogp.png`;
 
   console.log("Image URL:", imageUrl);
   console.log("Setting.FRONT_URL:", Setting.FRONT_URL);
