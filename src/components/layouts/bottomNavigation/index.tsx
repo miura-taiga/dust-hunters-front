@@ -21,7 +21,7 @@ export default function SimpleBottomNavigation() {
 
     switch (newValue) {
       case 0:
-        router.push("/top");
+        router.push("/");
         break;
       case 1:
         router.push("/quests");

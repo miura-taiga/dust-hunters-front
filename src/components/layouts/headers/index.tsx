@@ -25,7 +25,7 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <Link href="/top">
+        <Link href="/">
           <Typography
             variant="h4"
             component="div"

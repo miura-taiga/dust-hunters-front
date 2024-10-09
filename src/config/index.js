@@ -1,3 +1,4 @@
 import { Settings } from "./env";
+import { Setting } from "./frontUrl"
 
-export { Settings };
+export { Settings, Setting };
