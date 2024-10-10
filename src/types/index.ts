@@ -36,7 +36,3 @@ export interface JwtPayload {
   google_user_id: string;
   exp: number;
 }
-
-export interface XShareButtonProps {
-  name: string;
-}
