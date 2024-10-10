@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 import { BottomNavigation, UserAvatar } from "@/components/layouts";
 import { AuthProvider } from "@/contexts/auth";
 import { Setting } from "@/config";
@@ -14,6 +13,23 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/favicon/favicon.png",
   },
+  openGraph: {
+    title: "Dust Hunters",
+    description: "『 掃除 x 狩 』のお掃除支援アプリです。",
+    url: Setting.FRONT_URL,
+    images: [
+      {
+        url: `${Setting.FRONT_URL}/images/layouts/ogp.jpg`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [`${Setting.FRONT_URL}/images/layouts/ogp.jpg`],
+  },
 };
 
 export default function RootLayout({
@@ -23,15 +39,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:title" content="DustHunters" />
-        <meta property="og:description" content="『 掃除 x 狩』のお掃除支援アプリです。" />
-        <meta property="og:image" content={`${Setting.FRONT_URL}/images/layouts/ogp.png`}/>
-        <meta property="og:url" content={Setting.FRONT_URL} />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={`${Setting.FRONT_URL}/images/layouts/ogp.png`} />
-      </Head>
       <body className={inter.className}>
         <AuthProvider>
           <UserAvatar />
