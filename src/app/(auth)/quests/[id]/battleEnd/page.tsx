@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { BasicButton, BlackButton, Loading } from "@/components/layouts";
 import useFetchData from "@/lib/useFetchData";
@@ -56,18 +55,6 @@ const BattleEnd = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-between p-4">
-      <Head>
-        <title>{`${monster.name}を討伐したよ！`}</title>
-        <meta property="og:title" content={`${monster.name}を討伐したよ！`} />
-        <meta property="og:description" content="討伐完了！詳細はこちら。" />
-        <meta property="og:image" content={imageUrl} />
-        <meta property="og:url" content={Setting.FRONT_URL} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${monster.name}を討伐したよ！`} />
-        <meta name="twitter:description" content="討伐完了！詳細はこちら。" />
-        <meta name="twitter:image" content={imageUrl} />
-      </Head>
-
       {isLoading && (
         <div className="absolute z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
           <Loading />
