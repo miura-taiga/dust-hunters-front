@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Head from "next/head";
 import Image from "next/image";
-import { BasicButton, Loading } from "@/components/layouts";
-import XShareButton from "@/features/xShareButton";
+import { BasicButton, BlackButton, Loading } from "@/components/layouts";
 import useFetchData from "@/lib/useFetchData";
 import { Settings } from "@/config";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Monster } from "@/types";
+import { Setting } from "@/config";
 
 const BattleEnd = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -26,12 +27,47 @@ const BattleEnd = () => {
     setIsLoading(false);
   };
 
+  const handleShare = () => {
+    const appUrl = Setting.FRONT_URL;
+    const text = `${monster?.name}を討伐完了！`;
+    const hashtags = "DustHunters";
+
+    console.log("App URL:", appUrl);
+    console.log("Share Text:", text);
+    console.log("Hashtags:", hashtags);
+    console.log("Image URL:", imageUrl);
+
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      text
+    )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
+      hashtags
+    )}`;
+
+    console.log("Share URL:", shareUrl);
+
+    window.open(shareUrl, "_blank");
+  };
+
+  const imageUrl = `${Setting.FRONT_URL}/images/layouts/ogp.png`;
+
   if (!monster) {
     return <Loading />;
   }
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-between p-4">
+      <Head>
+        <title>{`${monster.name}を討伐したよ！`}</title>
+        <meta property="og:title" content={`${monster.name}を討伐したよ！`} />
+        <meta property="og:description" content="討伐完了！詳細はこちら。" />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:url" content={Setting.FRONT_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${monster.name}を討伐したよ！`} />
+        <meta name="twitter:description" content="討伐完了！詳細はこちら。" />
+        <meta name="twitter:image" content={imageUrl} />
+      </Head>
+
       {isLoading && (
         <div className="absolute z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
           <Loading />
@@ -59,7 +95,7 @@ const BattleEnd = () => {
             <Link href={"/quests"}>
               <BasicButton text="クエスト一覧" />
             </Link>
-            <XShareButton name={monster.name} />
+            <BlackButton text={"Xに共有する"} onClick={handleShare} />
           </div>
         </>
       )}
