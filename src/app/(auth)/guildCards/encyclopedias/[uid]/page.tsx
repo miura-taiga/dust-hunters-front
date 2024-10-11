@@ -58,6 +58,7 @@ export default function MonsterEncyclopedia() {
           zIndex: 1,
           padding: "16px",
           color: "white",
+          paddingBottom: "80px",
         }}
       >
         <Grid container spacing={8} sx={{ marginTop: "76px" }}>
