@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
-import { BasicButton, BlackButton, Loading } from '@/components/layouts';
-import useFetchData from '@/lib/useFetchData';
-import { Settings } from '@/config';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+
+import { BasicButton, BlackButton, Loading } from '@/components/layouts';
+import { Settings , Setting } from '@/config';
+import useFetchData from '@/lib/useFetchData';
 import { Monster } from '@/types';
-import { Setting } from '@/config';
 
 const BattleEnd = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -54,9 +54,9 @@ const BattleEnd = () => {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-between p-4">
+    <div className="relative flex min-h-screen flex-col items-center justify-between p-4">
       {isLoading && (
-        <div className="absolute z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div className="absolute z-50 flex size-full items-center justify-center bg-black bg-opacity-50">
           <Loading />
         </div>
       )}
@@ -73,12 +73,12 @@ const BattleEnd = () => {
 
       {isImageLoaded && (
         <>
-          <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-            <p className="text-2xl sm:text-2xl md:text-4xl bg-black bg-opacity-50 p-4 rounded-md mt-20 sm:mb-6">
+          <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+            <p className="mt-20 rounded-md bg-black bg-opacity-50 p-4 text-2xl sm:mb-6 sm:text-2xl md:text-4xl">
               討伐完了！掃除の成果をXに共有しよう！
             </p>
           </div>
-          <div className="w-full max-w-2xl flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mt-auto mb-48 z-10">
+          <div className="z-10 mb-48 mt-auto flex w-full max-w-2xl flex-col items-center justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
             <Link href={'/quests'}>
               <BasicButton text="クエスト一覧" />
             </Link>

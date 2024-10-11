@@ -1,5 +1,6 @@
-import { Headers, Footers } from '@/components/layouts';
 import { ReactNode } from 'react';
+
+import { Headers, Footers } from '@/components/layouts';
 
 interface GeneralLayoutProps {
   children: ReactNode;

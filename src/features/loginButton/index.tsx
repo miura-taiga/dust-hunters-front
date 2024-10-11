@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
-import { Settings } from '@/config';
-import { BasicButton } from '@/components/layouts';
 import LoginIcon from '@mui/icons-material/Login';
+import React from 'react';
+
+import { BasicButton } from '@/components/layouts';
+import { Settings } from '@/config';
 
 const LoginButton: React.FC = () => {
   const handleGoogleAuth = (e: React.MouseEvent<HTMLButtonElement>) => {

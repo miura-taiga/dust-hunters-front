@@ -3,6 +3,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { BasicButton, Loading } from '@/components/layouts';
 import { Quest, Monster } from '@/types';
 
@@ -66,7 +67,7 @@ const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monster }) => {
         alt={monster.name}
         width={250}
         height={250}
-        className="border-4 border-gray-300 rounded-lg"
+        className="rounded-lg border-4 border-gray-300"
         style={{
           margin: '0 auto',
           borderRadius: '8px',

@@ -1,14 +1,15 @@
 'use client';
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeIcon from '@mui/icons-material/Home';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BookIcon from '@mui/icons-material/Book';
+import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Box from '@mui/material/Box';
 import { useRouter } from 'next/navigation';
+import * as React from 'react';
+
 import { useAuth } from '@/contexts/auth';
 
 export default function SimpleBottomNavigation() {

@@ -1,24 +1,24 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import {
   Box,
   TextField,
   Typography,
   Stack,
-  Button,
   MenuItem,
   Card,
   CardContent,
 } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+
+import { BasicButton, Loading } from '@/components/layouts';
 import { SuccessMessage, ErrorMessage } from '@/components/layouts/messages';
 import { Settings } from '@/config';
-import { UserUid } from '@/hooks/userUid';
-import { BasicButton, Loading } from '@/components/layouts';
 import { GameContainerWrapper } from '@/features/quests';
-import styled from '@emotion/styled';
-import useFetchData from '@/lib/useFetchData';
+import { UserUid } from '@/hooks/userUid';
 import fetcher from '@/lib/fetcher';
+import useFetchData from '@/lib/useFetchData';
 import { UserData } from '@/types';
 
 const StyledCard = styled(Card)`
@@ -129,8 +129,8 @@ export default function UserProfile() {
         />
       )}
 
-      <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-        <p className="text-2xl sm:text-2xl md:text-5xl bg-black bg-opacity-50 p-4 rounded-md mt-2 sm:mb-2">
+      <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+        <p className="mt-2 rounded-md bg-black bg-opacity-50 p-4 text-2xl sm:mb-2 sm:text-2xl md:text-5xl">
           ハンター登録
         </p>
       </div>

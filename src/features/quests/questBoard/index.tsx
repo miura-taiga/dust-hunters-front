@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { QuestItem } from '@/features/quests';
+import React, { useState } from 'react';
+
 import { Loading } from '@/components/layouts';
+import { QuestItem } from '@/features/quests';
 import { Quest } from '@/types';
 
 interface QuestBoardProps {

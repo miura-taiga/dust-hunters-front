@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
+import { Loading } from '@/components/layouts';
+import { SuccessMessage } from '@/components/layouts/messages';
+import { Settings } from '@/config';
 import {
   GameContainerWrapper,
   QuestBoard,
   QuestDetail,
   MobileDialog,
 } from '@/features/quests';
-import { SuccessMessage } from '@/components/layouts/messages';
 import useFetchData from '@/lib/useFetchData';
-import { Settings } from '@/config';
-import { Loading } from '@/components/layouts';
 import { Quest, Monster } from '@/types';
 
 export default function QuestPage() {
@@ -68,15 +69,15 @@ export default function QuestPage() {
           onClose={() => setShowSuccessMessage(false)}
         />
       )}
-      <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-        <p className="text-2xl sm:text-2xl md:text-5xl bg-black bg-opacity-50 p-4 rounded-md mt-2 sm:mb-2">
+      <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+        <p className="mt-2 rounded-md bg-black bg-opacity-50 p-4 text-2xl sm:mb-2 sm:text-2xl md:text-5xl">
           クエスト一覧
         </p>
       </div>
 
       {/* レイアウト */}
-      <div className="w-full max-w-6xl pt-4 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
+      <div className="w-full max-w-6xl px-4 pt-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_2fr]">
           {/* QuestBoardにクエストデータを渡す */}
           <QuestBoard
             quests={quests}
