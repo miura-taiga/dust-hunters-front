@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { Grid, Card, CardMedia, Typography, Box } from "@mui/material";
-import { UserUid } from "@/hooks/userUid";
-import useFetchData from "@/lib/useFetchData";
-import { Loading } from "@/components/layouts";
-import styled from "@emotion/styled";
-import { Settings } from "@/config";
-import { Monster, GuildCard } from "@/types";
+import React, { useState, useEffect } from 'react';
+import { Grid, Card, CardMedia, Typography, Box } from '@mui/material';
+import { UserUid } from '@/hooks/userUid';
+import useFetchData from '@/lib/useFetchData';
+import { Loading } from '@/components/layouts';
+import styled from '@emotion/styled';
+import { Settings } from '@/config';
+import { Monster, GuildCard } from '@/types';
 
-const defaultImage = "/images/monsters/encyclopedias/monster_question_mark.jpg";
+const defaultImage = '/images/monsters/encyclopedias/monster_question_mark.jpg';
 
 const StyledCard = styled(Card)`
   background-color: rgba(30, 58, 138, 0.8);
@@ -24,7 +24,7 @@ export default function MonsterEncyclopedia() {
   const [guildCards, setGuildCards] = useState<GuildCard[]>([]);
 
   const monstersData = useFetchData(
-    uid ? `${Settings.API_URL}/api/v1/guild_cards/${uid}` : ""
+    uid ? `${Settings.API_URL}/api/v1/guild_cards/${uid}` : '',
   );
 
   useEffect(() => {
@@ -54,14 +54,14 @@ export default function MonsterEncyclopedia() {
 
       <Box
         sx={{
-          position: "relative",
+          position: 'relative',
           zIndex: 1,
-          padding: "16px",
-          color: "white",
-          paddingBottom: "80px",
+          padding: '16px',
+          color: 'white',
+          paddingBottom: '80px',
         }}
       >
-        <Grid container spacing={8} sx={{ marginTop: "76px" }}>
+        <Grid container spacing={8} sx={{ marginTop: '76px' }}>
           {guildCards.map((guildCard) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={guildCard.monster.id}>
               <StyledCard className="text-white h-full max-w-[300px] mx-auto border-4 border-gray-300 rounded-xl shadow-lg p-4">
@@ -84,15 +84,15 @@ export default function MonsterEncyclopedia() {
                   alt={guildCard.monster.name}
                   className="rounded-xl mx-auto mb-4 border-2 border-gray-300"
                   style={{
-                    width: "100%",
-                    maxWidth: "220px",
-                    objectFit: "contain",
+                    width: '100%',
+                    maxWidth: '220px',
+                    objectFit: 'contain',
                   }}
                 />
                 <Typography
                   variant="body2"
                   className="text-white text-center mb-2"
-                  fontSize={"20px"}
+                  fontSize={'20px'}
                 >
                   討伐数: {guildCard.defeat_count}
                 </Typography>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import React, { useEffect } from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 interface AlertMessageProps {
   message: string;
-  severity: "success" | "error" | "warning" | "info";
+  severity: 'success' | 'error' | 'warning' | 'info';
   autoHideDuration?: number;
   onClose: () => void;
 }
@@ -15,7 +15,7 @@ const AlertMessage: React.FC<AlertMessageProps> = ({
   message,
   severity,
   autoHideDuration = 3000,
-  onClose
+  onClose,
 }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,7 +30,7 @@ const AlertMessage: React.FC<AlertMessageProps> = ({
   return (
     <Snackbar
       open={true}
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       onClose={onClose}
     >
       <Alert severity={severity} variant="filled" onClose={onClose}>

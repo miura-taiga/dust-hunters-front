@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styled from "@emotion/styled";
-import Image from "next/image";
-import Link from "next/link";
-import { BasicButton, Loading } from "@/components/layouts";
-import { Quest, Monster } from "@/types";
+import styled from '@emotion/styled';
+import Image from 'next/image';
+import Link from 'next/link';
+import { BasicButton, Loading } from '@/components/layouts';
+import { Quest, Monster } from '@/types';
 
 interface QuestDetailProps {
   questId: number;
@@ -68,9 +68,9 @@ const QuestDetail: React.FC<QuestDetailProps> = ({ quest, monster }) => {
         height={250}
         className="border-4 border-gray-300 rounded-lg"
         style={{
-          margin: "0 auto",
-          borderRadius: "8px",
-          border: "4px solid #ccc",
+          margin: '0 auto',
+          borderRadius: '8px',
+          border: '4px solid #ccc',
         }}
       />
       <MonsterName>{monster.name} 1頭の狩猟</MonsterName>

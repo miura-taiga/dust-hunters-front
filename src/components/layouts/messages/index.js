@@ -1,6 +1,6 @@
-import AlertMessages from "./alertMessages";
-import SuccessMessage from "./successMessage";
-import ErrorMessage from "./errorMessage"
-import WarningMessage from "./warningMessage";
+import AlertMessages from './alertMessages';
+import SuccessMessage from './successMessage';
+import ErrorMessage from './errorMessage';
+import WarningMessage from './warningMessage';
 
-export { AlertMessages, SuccessMessage, ErrorMessage, WarningMessage}
+export { AlertMessages, SuccessMessage, ErrorMessage, WarningMessage };

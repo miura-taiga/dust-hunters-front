@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import AlertMessage from "@/components/layouts/messages/alertMessages";
+import React from 'react';
+import AlertMessage from '@/components/layouts/messages/alertMessages';
 
 interface WarningMessageProps {
   message: string;
@@ -12,7 +12,7 @@ interface WarningMessageProps {
 const WarningMessage: React.FC<WarningMessageProps> = ({
   message,
   autoHideDuration,
-  onClose
+  onClose,
 }) => (
   <AlertMessage
     message={message}

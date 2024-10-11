@@ -1,3 +1,3 @@
-import LoginButton from "./loginButton";
+import LoginButton from './loginButton';
 
-export { LoginButton }
+export { LoginButton };
