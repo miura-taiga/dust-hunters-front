@@ -36,3 +36,29 @@ export interface JwtPayload {
   google_user_id: string;
   exp: number;
 }
+
+export interface QuestBoardProps {
+  quests: Quest[];
+  onQuestClick: (questId: number) => void;
+  isMobile: boolean;
+}
+
+export interface QuestDetailProps {
+  questId: number;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
+}
+
+export interface QuestItemProps {
+  quest: Quest;
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+export interface MobileDialogProps {
+  open: boolean;
+  onClose: () => void;
+  questId: number;
+  quest: Quest | undefined;
+  monster: Monster | undefined;
+}

@@ -1,3 +1,3 @@
-import UserUid from './userUid';
+import { UserUid } from './userUid';
 
 export { UserUid };

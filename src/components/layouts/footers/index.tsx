@@ -2,7 +2,6 @@
 
 import { GitHub } from '@mui/icons-material';
 import { AppBar, Toolbar, Typography, Link, Box, SvgIcon } from '@mui/material';
-import React from 'react';
 
 // カスタムXアイコンの定義
 const XIcon = (props: any) => (

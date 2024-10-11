@@ -5,13 +5,7 @@ import React, { useState } from 'react';
 
 import { Loading } from '@/components/layouts';
 import { QuestItem } from '@/features/quests';
-import { Quest } from '@/types';
-
-interface QuestBoardProps {
-  quests: Quest[];
-  onQuestClick: (questId: number) => void;
-  isMobile: boolean;
-}
+import { Quest, QuestBoardProps } from '@/types';
 
 const QuestBoardContainer = styled.div`
   background-color: rgba(30, 58, 138, 0.8);

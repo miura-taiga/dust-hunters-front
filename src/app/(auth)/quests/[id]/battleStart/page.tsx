@@ -96,7 +96,7 @@ const BattleStart = () => {
   return (
     <div className="relative flex min-h-screen items-center justify-center">
       {isLoading && (
-        <div className="absolute z-50 flex size-full items-center justify-center bg-black bg-opacity-50">
+        <div className="absolute z-50 flex size-full items-center justify-center bg-black/50">
           <Loading />
         </div>
       )}
@@ -112,7 +112,7 @@ const BattleStart = () => {
       {isImageLoaded && (
         <>
           <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
-            <p className="mt-2 rounded-md bg-black bg-opacity-50 p-4 text-xl sm:mb-2 sm:text-2xl md:text-4xl">
+            <p className="mt-2 rounded-md bg-black/50 p-4 text-xl sm:mb-2 sm:text-2xl md:text-4xl">
               5分間掃除をしてモンスターに攻撃しよう！
             </p>
           </div>

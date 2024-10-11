@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 import { BasicButton, BlackButton, Loading } from '@/components/layouts';
-import { Settings , Setting } from '@/config';
+import { Settings, Setting } from '@/config';
 import useFetchData from '@/lib/useFetchData';
 import { Monster } from '@/types';
 
@@ -56,7 +56,7 @@ const BattleEnd = () => {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-between p-4">
       {isLoading && (
-        <div className="absolute z-50 flex size-full items-center justify-center bg-black bg-opacity-50">
+        <div className="absolute z-50 flex size-full items-center justify-center bg-black/50">
           <Loading />
         </div>
       )}
@@ -74,7 +74,7 @@ const BattleEnd = () => {
       {isImageLoaded && (
         <>
           <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
-            <p className="mt-20 rounded-md bg-black bg-opacity-50 p-4 text-2xl sm:mb-6 sm:text-2xl md:text-4xl">
+            <p className="mt-20 rounded-md bg-black/50 p-4 text-2xl sm:mb-6 sm:text-2xl md:text-4xl">
               討伐完了！掃除の成果をXに共有しよう！
             </p>
           </div>

@@ -41,7 +41,7 @@ const TopPage: React.FC = () => {
           />
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center">
-          <p className="mt-72 rounded-md bg-black bg-opacity-50 p-4 text-xl sm:mt-80 sm:text-2xl md:text-3xl">
+          <p className="mt-72 rounded-md bg-black/50 p-4 text-xl sm:mt-80 sm:text-2xl md:text-3xl">
             日常の掃除を冒険に変える！クエストに挑戦し、モンスターを討伐しよう！
           </p>
         </div>
