@@ -39,6 +39,10 @@ export default function SimpleBottomNavigation() {
     }
   };
 
+  if (!googleUserId) {
+    return null;
+  }
+
   return (
     <div>
       <Box
