@@ -4,13 +4,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
-import { Quest, Monster } from "@/types";
-
-interface QuestDetailProps {
-  questId: number;
-  quest: Quest | undefined;
-  monster: Monster | undefined;
-}
+import { QuestDetailProps } from "@/types";
 
 const QuestDetailContainer = styled.div`
   background-color: rgba(30, 58, 138, 0.8);

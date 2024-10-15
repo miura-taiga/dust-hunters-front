@@ -10,15 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BasicButton, Loading } from "@/components/layouts";
 import styled from "@emotion/styled";
-import { Quest, Monster } from "@/types";
-
-interface MobileDialogProps {
-  open: boolean;
-  onClose: () => void;
-  questId: number;
-  quest: Quest | undefined;
-  monster: Monster | undefined;
-}
+import { MobileDialogProps } from "@/types";
 
 const StyledDialogTitle = styled(DialogTitle)`
   position: relative;

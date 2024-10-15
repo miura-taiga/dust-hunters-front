@@ -1,17 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-interface Quest {
-  id: number;
-  title: string;
-  monsterName: string;
-}
-
-interface QuestItemProps {
-  quest: Quest;
-  isSelected: boolean;
-  onClick: () => void;
-}
+import { QuestItemProps } from "@/types";
 
 const Item = styled.li<{ isSelected: boolean }>`
   background-color: ${(props) => (props.isSelected ? "#3B82F6" : "#1E3A8A")};
