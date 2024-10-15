@@ -8,12 +8,15 @@ export interface Quest {
 export interface Monster {
   id: number;
   name: string;
+  defeat_count: number;
   bestiary_monster_image_url: string;
   start_battle_image_url: string;
   end_battle_image_url: string;
 }
 
 export interface UserData {
+  id: number;
+  email: string;
   name: string;
   gender: string;
   hunterRank: number;
@@ -27,7 +30,7 @@ export interface GuildCard {
 export interface AuthContextType {
   token: string | null;
   googleUserId: string | null;
-  currentUser: any;
+  currentUser: UserData | null;
   setToken: (token: string) => void;
   logout: () => void;
 }
@@ -35,12 +38,6 @@ export interface AuthContextType {
 export interface JwtPayload {
   google_user_id: string;
   exp: number;
-}
-
-export interface Quest {
-  id: number;
-  title: string;
-  monsterName: string;
 }
 
 export interface QuestItemProps {

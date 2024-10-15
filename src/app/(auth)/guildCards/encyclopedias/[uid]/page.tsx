@@ -29,7 +29,7 @@ export default function MonsterEncyclopedia() {
 
   useEffect(() => {
     if (Array.isArray(monstersData)) {
-      const formattedGuildCards = monstersData.map((data: any) => ({
+      const formattedGuildCards = monstersData.map((data) => ({
         defeat_count: data.defeat_count,
         monster: {
           id: data.monster_id,

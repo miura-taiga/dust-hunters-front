@@ -1,10 +1,17 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useCallback,
+} from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { Settings } from "@/config";
-import { AuthContextType, JwtPayload } from "@/types"
+import { AuthContextType, JwtPayload, UserData } from "@/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -37,7 +44,7 @@ const getTokenFromStorageOrUrl = () => {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null);
   const [googleUserId, setGoogleUserId] = useState<string | null>(null);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [isCheckingToken, setIsCheckingToken] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
@@ -103,7 +110,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, googleUserId, currentUser, setToken, logout }}>
+    <AuthContext.Provider
+      value={{ token, googleUserId, currentUser, setToken, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
