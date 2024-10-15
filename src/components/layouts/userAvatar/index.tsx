@@ -35,9 +35,9 @@ const UserAvatar: FC = () => {
   }
 
   return (
-    <div className="fixed bottom-20 left-4 flex flex-col items-center z-50">
+    <div className="fixed bottom-20 left-4 z-50 flex flex-col items-center">
       {/* アバター */}
-      <div className="relative w-24 h-24 bg-[#1E3A8A] rounded-full flex items-center justify-center shadow-md">
+      <div className="relative flex size-24 items-center justify-center rounded-full bg-[#1E3A8A] shadow-md">
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -50,7 +50,7 @@ const UserAvatar: FC = () => {
       </div>
       {/* ハンターランク */}
       {hunterRank !== null && (
-        <div className="absolute bottom-[-8px] right-[-8px] bg-white text-[#1E3A8A] rounded-full w-12 h-8 flex items-center justify-center text-sm font-bold shadow-md">
+        <div className="absolute bottom-[-8px] right-[-8px] flex h-8 w-12 items-center justify-center rounded-full bg-white text-sm font-bold text-[#1E3A8A] shadow-md">
           HR: {hunterRank}
         </div>
       )}

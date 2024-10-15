@@ -79,20 +79,20 @@ export default function Footer() {
           <Link href="#" color="inherit">
             <GitHub
               fontSize="large"
-              className="text-white hover:text-gray-400 transition-opacity transform hover:scale-110 hover:opacity-40"
+              className="text-white transition-opacity hover:scale-110 hover:text-gray-400 hover:opacity-40"
             />
           </Link>
           {/* Xアイコン */}
           <Link href="#" color="inherit">
             <XIcon
               fontSize="large"
-              className="text-white hover:text-gray-400 transition-opacity transform hover:scale-110 hover:opacity-40"
+              className="text-white transition-opacity hover:scale-110 hover:text-gray-400 hover:opacity-40"
             />
           </Link>
         </Box>
 
         {/* フッターの著作権情報 */}
-        <Typography variant="body2" className="text-gray-400 mt-6">
+        <Typography variant="body2" className="mt-6 text-gray-400">
           © 2024 Dust Hunters. All Rights Reserved.
         </Typography>
       </Toolbar>

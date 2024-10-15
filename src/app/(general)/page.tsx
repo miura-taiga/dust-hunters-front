@@ -23,7 +23,7 @@ const TopPage: React.FC = () => {
 
   return (
     <article>
-      <div className="relative min-h-screen flex flex-col justify-center text-white">
+      <div className="relative flex min-h-screen flex-col justify-center text-white">
         {showMessage && (
           <WarningMessage
             message={message}
@@ -39,12 +39,12 @@ const TopPage: React.FC = () => {
             className="z-0"
           />
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
-          <p className="text-xl sm:text-2xl md:text-3xl bg-black bg-opacity-50 p-4 rounded-md mt-72 sm:mt-80">
+        <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center">
+          <p className="mt-72 rounded-md bg-black/50 p-4 text-xl sm:mt-80 sm:text-2xl md:text-3xl">
             日常の掃除を冒険に変える！クエストに挑戦し、モンスターを討伐しよう！
           </p>
         </div>
-        <div className="relative z-10 flex items-center justify-center mt-auto mb-60 sm:mb-60">
+        <div className="relative z-10 mb-60 mt-auto flex items-center justify-center sm:mb-60">
           <Link href="/quests">
             <BasicButton text="ひと狩り行こうぜ" />
           </Link>
