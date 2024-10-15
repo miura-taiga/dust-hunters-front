@@ -1,7 +1,6 @@
 'use client';
 
 import LoginIcon from '@mui/icons-material/Login';
-import React from 'react';
 import { BasicButton } from '@/components/layouts';
 import { Settings } from '@/config';
 

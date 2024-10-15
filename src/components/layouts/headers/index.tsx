@@ -2,7 +2,6 @@
 
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import Link from 'next/link';
-import React from 'react';
 import { useAuth } from '@/contexts/auth';
 import LoginButton from '@/features/loginButton';
 

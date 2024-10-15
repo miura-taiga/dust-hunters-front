@@ -10,7 +10,6 @@ import {
   SvgIcon,
   SvgIconProps,
 } from '@mui/material';
-import React from 'react';
 
 // カスタムXアイコンの定義
 const XIcon = (props: SvgIconProps) => (

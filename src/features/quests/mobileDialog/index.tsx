@@ -8,7 +8,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { BasicButton, Loading } from '@/components/layouts';
 import { MobileDialogProps } from '@/types';
 

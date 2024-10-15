@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import AlertMessage from '@/components/layouts/messages/alertMessages';
 
 interface SuccessMessageProps {
