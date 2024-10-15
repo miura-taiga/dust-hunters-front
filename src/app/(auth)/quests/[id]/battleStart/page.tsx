@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { Typography } from "@mui/material";
-import { BasicButton, SecondaryButton, Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
-import { useParams, useRouter } from "next/navigation";
-import { Monster } from "@/types";
-import fetcher from "@/lib/fetcher";
-import { useAuth } from "@/contexts/auth";
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Typography } from '@mui/material';
+import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
+import useFetchData from '@/lib/useFetchData';
+import { Settings } from '@/config';
+import { useParams, useRouter } from 'next/navigation';
+import { Monster } from '@/types';
+import fetcher from '@/lib/fetcher';
+import { useAuth } from '@/contexts/auth';
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();
@@ -23,7 +23,7 @@ const BattleStart = () => {
   const questId = params.id;
 
   const monster: Monster | undefined = useFetchData<Monster>(
-    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
+    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : '',
   );
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const BattleStart = () => {
 
   useEffect(() => {
     if (countdown === 3) {
-      const audio = new Audio("/sounds/Countdown06-2.mp3");
+      const audio = new Audio('/sounds/Countdown06-2.mp3');
       audio.play();
     }
   }, [countdown]);
@@ -60,11 +60,9 @@ const BattleStart = () => {
   const handleStartBattle = async () => {
     if (!googleUserId || !questId) return;
 
-    await fetcher(
-      `${Settings.API_URL}/api/v1/user_quests`,
-      "POST",
-      { quest_id: questId }
-    );
+    await fetcher(`${Settings.API_URL}/api/v1/user_quests`, 'POST', {
+      quest_id: questId,
+    });
     setIsStarted(true);
   };
 
@@ -73,18 +71,18 @@ const BattleStart = () => {
 
     await fetcher(
       `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
-      "PATCH",
-      { monster_id: monster.id }
+      'PATCH',
+      { monster_id: monster.id },
     );
 
     await fetcher(
       `${Settings.API_URL}/api/v1/users/${googleUserId}/increment_hunter_rank`,
-      "PATCH"
+      'PATCH',
     );
 
     await fetcher(
       `${Settings.API_URL}/api/v1/user_quests/${questId}/complete`,
-      "PATCH"
+      'PATCH',
     );
 
     router.push(`/quests/${questId}/battleEnd`);
@@ -123,9 +121,9 @@ const BattleStart = () => {
                 text="戦闘開始"
                 onClick={handleStartBattle}
                 style={{
-                  fontSize: "34px",
-                  padding: "16px 42px",
-                  marginTop: "400px",
+                  fontSize: '34px',
+                  padding: '16px 42px',
+                  marginTop: '400px',
                 }}
               />
             ) : !isTimeUp ? (
@@ -137,9 +135,9 @@ const BattleStart = () => {
                 text="攻撃する"
                 onClick={handleAttack}
                 style={{
-                  fontSize: "34px",
-                  padding: "16px 42px",
-                  marginTop: "400px",
+                  fontSize: '34px',
+                  padding: '16px 42px',
+                  marginTop: '400px',
                 }}
               />
             )}

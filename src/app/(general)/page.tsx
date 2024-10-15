@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { BasicButton } from "@/components/layouts";
-import { WarningMessage } from "@/components/layouts/messages";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { BasicButton } from '@/components/layouts';
+import { WarningMessage } from '@/components/layouts/messages';
 
 const TopPage: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const flash = searchParams.get("flash");
-    const message = searchParams.get("message");
+    const flash = searchParams.get('flash');
+    const message = searchParams.get('message');
 
-    if (flash === "warning" && message) {
+    if (flash === 'warning' && message) {
       setMessage(message);
       setShowMessage(true);
     }
@@ -35,7 +35,7 @@ const TopPage: React.FC = () => {
             src="/images/layouts/top_page_background_image.jpg"
             alt="Dust Hunters Background"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             className="z-0"
           />
         </div>

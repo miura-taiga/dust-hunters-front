@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   GameContainerWrapper,
   QuestBoard,
   QuestDetail,
   MobileDialog,
-} from "@/features/quests";
-import { SuccessMessage } from "@/components/layouts/messages";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
-import { Loading } from "@/components/layouts";
-import { Quest, Monster } from "@/types";
+} from '@/features/quests';
+import { SuccessMessage } from '@/components/layouts/messages';
+import useFetchData from '@/lib/useFetchData';
+import { Settings } from '@/config';
+import { Loading } from '@/components/layouts';
+import { Quest, Monster } from '@/types';
 
 export default function QuestPage() {
   const [selectedQuestId, setSelectedQuestId] = useState<number>(1);
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState('');
 
   const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
   const monsters = useFetchData<Monster[]>(
-    `${Settings.API_URL}/api/v1/monsters`
+    `${Settings.API_URL}/api/v1/monsters`,
   );
 
   useEffect(() => {
@@ -31,19 +31,19 @@ export default function QuestPage() {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    const token = urlParams.get('token');
 
     if (token) {
-      setSuccessMessage("ログインしました！");
+      setSuccessMessage('ログインしました！');
       setShowSuccessMessage(true);
     }
   }, []);

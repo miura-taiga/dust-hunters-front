@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { FC, useEffect, useState } from "react";
-import Image from "next/image";
-import { useAuth } from "@/contexts/auth";
-import { Settings } from "@/config";
-import useFetchData from "@/lib/useFetchData";
-import { UserData } from "@/types";
+import { FC, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useAuth } from '@/contexts/auth';
+import { Settings } from '@/config';
+import useFetchData from '@/lib/useFetchData';
+import { UserData } from '@/types';
 
 const UserAvatar: FC = () => {
   const { googleUserId } = useAuth();
@@ -13,22 +13,22 @@ const UserAvatar: FC = () => {
   const [gender, setGender] = useState<string | null>(null);
 
   const userData = useFetchData<UserData>(
-    googleUserId ? `${Settings.API_URL}/api/v1/users/${googleUserId}` : ""
+    googleUserId ? `${Settings.API_URL}/api/v1/users/${googleUserId}` : '',
   );
 
   useEffect(() => {
-    console.log("取得したGoogle User ID:", googleUserId);
-    console.log("取得したユーザーデータ:", userData);
+    console.log('取得したGoogle User ID:', googleUserId);
+    console.log('取得したユーザーデータ:', userData);
 
     if (userData) {
       setHunterRank(userData.hunterRank);
-      console.log("設定されたハンターランク:", userData.hunterRank);
+      console.log('設定されたハンターランク:', userData.hunterRank);
       setGender(userData.gender);
-      console.log("設定された性別:", userData.gender);
+      console.log('設定された性別:', userData.gender);
     }
   }, [userData, googleUserId]);
 
-  const imageUrl = gender ? `/images/userAvatars/${gender}.jpg` : "";
+  const imageUrl = gender ? `/images/userAvatars/${gender}.jpg` : '';
 
   if (!googleUserId) {
     return null;
