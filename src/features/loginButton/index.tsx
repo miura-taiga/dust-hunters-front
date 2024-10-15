@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Settings } from "@/config";
-import { BasicButton } from "@/components/layouts";
-import LoginIcon from "@mui/icons-material/Login";
+import LoginIcon from '@mui/icons-material/Login';
+import { BasicButton } from '@/components/layouts';
+import { Settings } from '@/config';
 
 const LoginButton: React.FC = () => {
   const handleGoogleAuth = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const form = document.createElement("form");
-    form.method = "GET";
+    const form = document.createElement('form');
+    form.method = 'GET';
     form.action = `${Settings.API_URL}/auth/google_oauth2`;
     document.body.appendChild(form);
     form.submit();
@@ -21,7 +20,6 @@ const LoginButton: React.FC = () => {
       startIcon={<LoginIcon />}
       onClick={handleGoogleAuth}
     />
-    
   );
 };
 

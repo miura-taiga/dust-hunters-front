@@ -1,7 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
-import AlertMessage from "@/components/layouts/messages/alertMessages";
+import AlertMessage from '@/components/layouts/messages/alertMessages';
 
 interface SuccessMessageProps {
   message: string;
@@ -12,7 +11,7 @@ interface SuccessMessageProps {
 const SuccessMessage: React.FC<SuccessMessageProps> = ({
   message,
   autoHideDuration,
-  onClose
+  onClose,
 }) => (
   <AlertMessage
     message={message}

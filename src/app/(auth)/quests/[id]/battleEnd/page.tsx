@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { BasicButton, BlackButton, Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import { Monster } from "@/types";
-import { Setting } from "@/config";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+import { BasicButton, BlackButton, Loading } from '@/components/layouts';
+import { Settings } from '@/config';
+import { Setting } from '@/config';
+import useFetchData from '@/lib/useFetchData';
+import { Monster } from '@/types';
 
 const BattleEnd = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -18,7 +18,7 @@ const BattleEnd = () => {
   const questId = params.id;
 
   const monster = useFetchData<Monster>(
-    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
+    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : '',
   );
 
   const handleImageLoad = () => {
@@ -29,22 +29,22 @@ const BattleEnd = () => {
   const handleShare = () => {
     const appUrl = Setting.FRONT_URL;
     const text = `${monster?.name}を討伐完了！`;
-    const hashtags = "DustHunters";
+    const hashtags = 'DustHunters';
 
-    console.log("App URL:", appUrl);
-    console.log("Share Text:", text);
-    console.log("Hashtags:", hashtags);
-    console.log("Image URL:", imageUrl);
+    console.log('App URL:', appUrl);
+    console.log('Share Text:', text);
+    console.log('Hashtags:', hashtags);
+    console.log('Image URL:', imageUrl);
 
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      text
+      text,
     )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
-      hashtags
+      hashtags,
     )}`;
 
-    console.log("Share URL:", shareUrl);
+    console.log('Share URL:', shareUrl);
 
-    window.open(shareUrl, "_blank");
+    window.open(shareUrl, '_blank');
   };
 
   const imageUrl = `${Setting.FRONT_URL}/images/layouts/ogp.png`;
@@ -54,9 +54,9 @@ const BattleEnd = () => {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-between p-4">
+    <div className="relative flex min-h-screen flex-col items-center justify-between p-4">
       {isLoading && (
-        <div className="absolute z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div className="absolute z-50 flex size-full items-center justify-center bg-black/50">
           <Loading />
         </div>
       )}
@@ -73,16 +73,16 @@ const BattleEnd = () => {
 
       {isImageLoaded && (
         <>
-          <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-            <p className="text-2xl sm:text-2xl md:text-4xl bg-black bg-opacity-50 p-4 rounded-md mt-20 sm:mb-6">
+          <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+            <p className="mt-20 rounded-md bg-black/50 p-4 text-2xl sm:mb-6 sm:text-2xl md:text-4xl">
               討伐完了！掃除の成果をXに共有しよう！
             </p>
           </div>
-          <div className="w-full max-w-2xl flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mt-auto mb-48 z-10">
-            <Link href={"/quests"}>
+          <div className="z-10 mb-48 mt-auto flex w-full max-w-2xl flex-col items-center justify-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+            <Link href={'/quests'}>
               <BasicButton text="クエスト一覧" />
             </Link>
-            <BlackButton text={"Xに共有する"} onClick={handleShare} />
+            <BlackButton text={'Xに共有する'} onClick={handleShare} />
           </div>
         </>
       )}

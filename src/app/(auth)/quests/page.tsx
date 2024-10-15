@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { Loading } from '@/components/layouts';
+import { SuccessMessage } from '@/components/layouts/messages';
+import { Settings } from '@/config';
 import {
   GameContainerWrapper,
   QuestBoard,
   QuestDetail,
   MobileDialog,
-} from "@/features/quests";
-import { SuccessMessage } from "@/components/layouts/messages";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
-import { Loading } from "@/components/layouts";
-import { Quest, Monster } from "@/types";
+} from '@/features/quests';
+import useFetchData from '@/lib/useFetchData';
+import { Quest, Monster } from '@/types';
 
 export default function QuestPage() {
   const [selectedQuestId, setSelectedQuestId] = useState<number>(1);
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState('');
 
   const quests = useFetchData<Quest[]>(`${Settings.API_URL}/api/v1/quests`);
   const monsters = useFetchData<Monster[]>(
-    `${Settings.API_URL}/api/v1/monsters`
+    `${Settings.API_URL}/api/v1/monsters`,
   );
 
   useEffect(() => {
@@ -31,19 +31,19 @@ export default function QuestPage() {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    const token = urlParams.get('token');
 
     if (token) {
-      setSuccessMessage("ログインしました！");
+      setSuccessMessage('ログインしました！');
       setShowSuccessMessage(true);
     }
   }, []);
@@ -68,15 +68,15 @@ export default function QuestPage() {
           onClose={() => setShowSuccessMessage(false)}
         />
       )}
-      <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-        <p className="text-2xl sm:text-2xl md:text-5xl bg-black bg-opacity-50 p-4 rounded-md mt-2 sm:mb-2">
+      <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+        <p className="mt-2 rounded-md bg-black/50 p-4 text-2xl sm:mb-2 sm:text-2xl md:text-5xl">
           クエスト一覧
         </p>
       </div>
 
       {/* レイアウト */}
-      <div className="w-full max-w-6xl pt-4 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
+      <div className="w-full max-w-6xl px-4 pt-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_2fr]">
           {/* QuestBoardにクエストデータを渡す */}
           <QuestBoard
             quests={quests}

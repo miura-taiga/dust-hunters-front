@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { Typography } from "@mui/material";
-import { BasicButton, SecondaryButton, Loading } from "@/components/layouts";
-import useFetchData from "@/lib/useFetchData";
-import { Settings } from "@/config";
-import { useParams, useRouter } from "next/navigation";
-import { Monster } from "@/types";
-import fetcher from "@/lib/fetcher";
-import { useAuth } from "@/contexts/auth";
+import { Typography } from '@mui/material';
+import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
+import { Settings } from '@/config';
+import { useAuth } from '@/contexts/auth';
+import fetcher from '@/lib/fetcher';
+import useFetchData from '@/lib/useFetchData';
+import { Monster } from '@/types';
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();
@@ -23,7 +23,7 @@ const BattleStart = () => {
   const questId = params.id;
 
   const monster: Monster | undefined = useFetchData<Monster>(
-    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : ""
+    questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : '',
   );
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const BattleStart = () => {
 
   useEffect(() => {
     if (countdown === 3) {
-      const audio = new Audio("/sounds/Countdown06-2.mp3");
+      const audio = new Audio('/sounds/Countdown06-2.mp3');
       audio.play();
     }
   }, [countdown]);
@@ -60,11 +60,9 @@ const BattleStart = () => {
   const handleStartBattle = async () => {
     if (!googleUserId || !questId) return;
 
-    await fetcher(
-      `${Settings.API_URL}/api/v1/user_quests`,
-      "POST",
-      { quest_id: questId }
-    );
+    await fetcher(`${Settings.API_URL}/api/v1/user_quests`, 'POST', {
+      quest_id: questId,
+    });
     setIsStarted(true);
   };
 
@@ -73,18 +71,18 @@ const BattleStart = () => {
 
     await fetcher(
       `${Settings.API_URL}/api/v1/guild_cards/${googleUserId}/increment_defeat_count`,
-      "PATCH",
-      { monster_id: monster.id }
+      'PATCH',
+      { monster_id: monster.id },
     );
 
     await fetcher(
       `${Settings.API_URL}/api/v1/users/${googleUserId}/increment_hunter_rank`,
-      "PATCH"
+      'PATCH',
     );
 
     await fetcher(
       `${Settings.API_URL}/api/v1/user_quests/${questId}/complete`,
-      "PATCH"
+      'PATCH',
     );
 
     router.push(`/quests/${questId}/battleEnd`);
@@ -95,9 +93,9 @@ const BattleStart = () => {
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center">
+    <div className="relative flex min-h-screen items-center justify-center">
       {isLoading && (
-        <div className="absolute z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div className="absolute z-50 flex size-full items-center justify-center bg-black/50">
           <Loading />
         </div>
       )}
@@ -112,20 +110,20 @@ const BattleStart = () => {
       />
       {isImageLoaded && (
         <>
-          <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-4xl font-bold z-10">
-            <p className="text-xl sm:text-2xl md:text-4xl bg-black bg-opacity-50 p-4 rounded-md mt-2 sm:mb-2">
+          <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
+            <p className="mt-2 rounded-md bg-black/50 p-4 text-xl sm:mb-2 sm:text-2xl md:text-4xl">
               5分間掃除をしてモンスターに攻撃しよう！
             </p>
           </div>
-          <div className="z-10 relative">
+          <div className="relative z-10">
             {!isStarted ? (
               <BasicButton
                 text="戦闘開始"
                 onClick={handleStartBattle}
                 style={{
-                  fontSize: "34px",
-                  padding: "16px 42px",
-                  marginTop: "400px",
+                  fontSize: '34px',
+                  padding: '16px 42px',
+                  marginTop: '400px',
                 }}
               />
             ) : !isTimeUp ? (
@@ -137,9 +135,9 @@ const BattleStart = () => {
                 text="攻撃する"
                 onClick={handleAttack}
                 style={{
-                  fontSize: "34px",
-                  padding: "16px 42px",
-                  marginTop: "400px",
+                  fontSize: '34px',
+                  padding: '16px 42px',
+                  marginTop: '400px',
                 }}
               />
             )}

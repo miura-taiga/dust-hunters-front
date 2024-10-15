@@ -1,4 +1,4 @@
-import useFetchData from "./useFetchData";
-import fetcher from "./fetcher";
+import fetcher from './fetcher';
+import useFetchData from './useFetchData';
 
-export { useFetchData, fetcher }
+export { useFetchData, fetcher };

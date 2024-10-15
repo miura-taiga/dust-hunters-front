@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { QuestItem } from "@/features/quests";
-import { Loading } from "@/components/layouts";
-import { Quest } from "@/types";
-
-interface QuestBoardProps {
-  quests: Quest[];
-  onQuestClick: (questId: number) => void;
-  isMobile: boolean;
-}
+import styled from '@emotion/styled';
+import React, { useState } from 'react';
+import { Loading } from '@/components/layouts';
+import { QuestItem } from '@/features/quests';
+import { Quest, QuestBoardProps } from '@/types';
 
 const QuestBoardContainer = styled.div`
   background-color: rgba(30, 58, 138, 0.8);

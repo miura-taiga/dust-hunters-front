@@ -1,24 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
-import Link from "next/link";
-import { BasicButton, Loading } from "@/components/layouts";
-import styled from "@emotion/styled";
-import { Quest, Monster } from "@/types";
-
-interface MobileDialogProps {
-  open: boolean;
-  onClose: () => void;
-  questId: number;
-  quest: Quest | undefined;
-  monster: Monster | undefined;
-}
+import styled from '@emotion/styled';
+import CloseIcon from '@mui/icons-material/Close';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Image from 'next/image';
+import Link from 'next/link';
+import { BasicButton, Loading } from '@/components/layouts';
+import { MobileDialogProps } from '@/types';
 
 const StyledDialogTitle = styled(DialogTitle)`
   position: relative;
@@ -71,10 +62,10 @@ const MobileDialog: React.FC<MobileDialogProps> = ({
       maxWidth="sm"
       PaperProps={{
         style: {
-          backgroundColor: "rgba(30, 58, 138, 0.9)",
-          color: "#fff",
-          borderRadius: "15px",
-          padding: "20px",
+          backgroundColor: 'rgba(30, 58, 138, 0.9)',
+          color: '#fff',
+          borderRadius: '15px',
+          padding: '20px',
         },
       }}
     >
@@ -92,9 +83,9 @@ const MobileDialog: React.FC<MobileDialogProps> = ({
           width={200}
           height={200}
           style={{
-            margin: "0 auto",
-            borderRadius: "8px",
-            border: "4px solid #ccc",
+            margin: '0 auto',
+            borderRadius: '8px',
+            border: '4px solid #ccc',
           }}
         />
         <StyledMonsterName>{monster.name} 1頭の狩猟</StyledMonsterName>

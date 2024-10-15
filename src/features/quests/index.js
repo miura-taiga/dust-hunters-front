@@ -1,8 +1,8 @@
-import GameContainerWrapper from "./gameContainerWrapper";
-import MobileDialog from "./mobileDialog";
-import QuestBoard from "./questBoard";
-import QuestDetail from "./questDetail";
-import QuestItem from "./questItem";
+import GameContainerWrapper from './gameContainerWrapper';
+import MobileDialog from './mobileDialog';
+import QuestBoard from './questBoard';
+import QuestDetail from './questDetail';
+import QuestItem from './questItem';
 
 export {
   GameContainerWrapper,

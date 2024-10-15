@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
-export const GameContainerWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const GameContainerWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   return <GameContainer>{children}</GameContainer>;
 };
 

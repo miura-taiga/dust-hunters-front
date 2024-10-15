@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const fetcher = async (
   url: string,
-  method: "GET" | "PATCH" | "POST" = "GET",
-  data?: any
+  method: 'GET' | 'PATCH' | 'POST' = 'GET',
+  data?: any,
 ): Promise<any> => {
-  const token = localStorage.getItem("authToken");
+  const token = localStorage.getItem('authToken');
 
   if (!token) {
-    throw new Error("認証トークンがありません。");
+    throw new Error('認証トークンがありません。');
   }
 
   const options: RequestInit = {
     method,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
 
-  if ((method === "PATCH" || method === "POST") && data) {
+  if ((method === 'PATCH' || method === 'POST') && data) {
     options.body = JSON.stringify(data);
   }
 
@@ -31,3 +32,4 @@ const fetcher = async (
 };
 
 export default fetcher;
+/* eslint-disable @typescript-eslint/no-explicit-any */
