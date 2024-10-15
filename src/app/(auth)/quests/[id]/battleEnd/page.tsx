@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
-import { BasicButton, BlackButton, Loading } from '@/components/layouts';
-import useFetchData from '@/lib/useFetchData';
-import { Settings } from '@/config';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Monster } from '@/types';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+import { BasicButton, BlackButton, Loading } from '@/components/layouts';
+import { Settings } from '@/config';
 import { Setting } from '@/config';
+import useFetchData from '@/lib/useFetchData';
+import { Monster } from '@/types';
 
 const BattleEnd = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);

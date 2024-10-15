@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import { Grid, Card, CardMedia, Typography, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Loading } from '@/components/layouts';
+import { Settings } from '@/config';
 import { UserUid } from '@/hooks/userUid';
 import useFetchData from '@/lib/useFetchData';
-import { Loading } from '@/components/layouts';
-import styled from '@emotion/styled';
-import { Settings } from '@/config';
 import { Monster, GuildCard } from '@/types';
 
 const defaultImage = '/images/monsters/encyclopedias/monster_question_mark.jpg';

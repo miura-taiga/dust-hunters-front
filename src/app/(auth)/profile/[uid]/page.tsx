@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import {
   Box,
   TextField,
@@ -10,14 +10,14 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { BasicButton, Loading } from '@/components/layouts';
 import { SuccessMessage, ErrorMessage } from '@/components/layouts/messages';
 import { Settings } from '@/config';
-import { UserUid } from '@/hooks/userUid';
-import { BasicButton, Loading } from '@/components/layouts';
 import { GameContainerWrapper } from '@/features/quests';
-import styled from '@emotion/styled';
-import useFetchData from '@/lib/useFetchData';
+import { UserUid } from '@/hooks/userUid';
 import fetcher from '@/lib/fetcher';
+import useFetchData from '@/lib/useFetchData';
 import { UserData } from '@/types';
 
 const StyledCard = styled(Card)`

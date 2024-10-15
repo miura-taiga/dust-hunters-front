@@ -1,16 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Loading } from '@/components/layouts';
+import { SuccessMessage } from '@/components/layouts/messages';
+import { Settings } from '@/config';
 import {
   GameContainerWrapper,
   QuestBoard,
   QuestDetail,
   MobileDialog,
 } from '@/features/quests';
-import { SuccessMessage } from '@/components/layouts/messages';
 import useFetchData from '@/lib/useFetchData';
-import { Settings } from '@/config';
-import { Loading } from '@/components/layouts';
 import { Quest, Monster } from '@/types';
 
 export default function QuestPage() {

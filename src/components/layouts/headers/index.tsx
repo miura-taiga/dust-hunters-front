@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import Link from 'next/link';
-import LoginButton from '@/features/loginButton';
+import React from 'react';
 import { useAuth } from '@/contexts/auth';
+import LoginButton from '@/features/loginButton';
 
 export default function Header() {
   const { token } = useAuth();

@@ -1,15 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { Typography } from '@mui/material';
-import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
-import useFetchData from '@/lib/useFetchData';
-import { Settings } from '@/config';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { Monster } from '@/types';
-import fetcher from '@/lib/fetcher';
+import { useState, useEffect } from 'react';
+import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
+import { Settings } from '@/config';
 import { useAuth } from '@/contexts/auth';
+import fetcher from '@/lib/fetcher';
+import useFetchData from '@/lib/useFetchData';
+import { Monster } from '@/types';
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();

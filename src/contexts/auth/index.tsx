@@ -1,5 +1,7 @@
 'use client';
 
+import { jwtDecode } from 'jwt-decode';
+import { useRouter, usePathname } from 'next/navigation';
 import React, {
   createContext,
   useContext,
@@ -8,8 +10,6 @@ import React, {
   ReactNode,
   useCallback,
 } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { jwtDecode } from 'jwt-decode';
 import { Settings } from '@/config';
 import { AuthContextType, JwtPayload, UserData } from '@/types';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { GitHub } from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -10,7 +10,7 @@ import {
   SvgIcon,
   SvgIconProps,
 } from '@mui/material';
-import { GitHub } from '@mui/icons-material';
+import React from 'react';
 
 // カスタムXアイコンの定義
 const XIcon = (props: SvgIconProps) => (

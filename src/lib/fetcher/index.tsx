@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const fetcher = async (
   url: string,
   method: 'GET' | 'PATCH' | 'POST' = 'GET',
@@ -31,3 +32,4 @@ const fetcher = async (
 };
 
 export default fetcher;
+/* eslint-disable @typescript-eslint/no-explicit-any */

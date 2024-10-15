@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useAuth } from '@/contexts/auth';
+import { FC, useEffect, useState } from 'react';
 import { Settings } from '@/config';
+import { useAuth } from '@/contexts/auth';
 import useFetchData from '@/lib/useFetchData';
 import { UserData } from '@/types';
 
