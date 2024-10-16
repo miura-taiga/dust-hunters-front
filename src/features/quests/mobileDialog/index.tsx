@@ -19,6 +19,9 @@ const StyledDialogTitle = styled(DialogTitle)`
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledMonsterName = styled.p`
@@ -35,6 +38,10 @@ const StyledDialogContent = styled(DialogContent)`
   align-items: center;
   justify-content: center;
   text-align: center;
+  p {
+    font-size: calc(1rem + 1vw);
+    white-space: nowrap;
+  }
 `;
 
 const CloseButton = styled(IconButton)`
