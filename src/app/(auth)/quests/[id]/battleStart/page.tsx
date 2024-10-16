@@ -3,7 +3,7 @@
 import { Typography } from '@mui/material';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
 import { Settings } from '@/config';
 import { useAuth } from '@/contexts/auth';
@@ -21,6 +21,7 @@ const BattleStart = () => {
   const router = useRouter();
   const params = useParams();
   const questId = params.id;
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const monster: Monster | undefined = useFetchData<Monster>(
     questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : '',
@@ -38,9 +39,8 @@ const BattleStart = () => {
   }, [countdown, isStarted]);
 
   useEffect(() => {
-    if (countdown === 3) {
-      const audio = new Audio('/sounds/Countdown06-2.mp3');
-      audio.play();
+    if (countdown === 3 && audioRef.current) {
+      audioRef.current.play();
     }
   }, [countdown]);
 
@@ -63,6 +63,8 @@ const BattleStart = () => {
     await fetcher(`${Settings.API_URL}/api/v1/user_quests`, 'POST', {
       quest_id: questId,
     });
+
+    audioRef.current = new Audio('/sounds/Countdown06-2.mp3');
     setIsStarted(true);
   };
 
