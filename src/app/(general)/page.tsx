@@ -39,9 +39,9 @@ const TopPage: React.FC = () => {
             className="z-0"
           />
         </div>
-        <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center">
-          <p className="mt-72 rounded-md bg-black/50 p-4 text-xl sm:mt-80 sm:text-2xl md:text-3xl">
-            日常の掃除を冒険に変える！クエストに挑戦し、モンスターを討伐しよう！
+        <div className="absolute left-1/2 top-10 z-10 w-full max-w-[90%] -translate-x-1/2 text-4xl font-bold text-white sm:max-w-[78%]">
+          <p className="mt-20 rounded-md bg-black/40 px-8 py-4 text-left text-xl sm:mb-2 sm:mt-44 sm:text-2xl md:mt-60 md:text-4xl">
+            日常の掃除を「狩」に変える！クエストに挑戦し、モンスターを討伐しよう！
           </p>
         </div>
         <div className="relative z-10 mb-60 mt-auto flex items-center justify-center sm:mb-60">

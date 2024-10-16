@@ -145,8 +145,8 @@ const BattleStart = () => {
       />
       {isImageLoaded && (
         <>
-          <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
-            <p className="mt-2 rounded-md bg-black/50 p-4 text-xl sm:mb-2 sm:text-2xl md:text-4xl">
+          <div className="absolute left-1/2 top-10 z-10 w-full max-w-[90%] -translate-x-1/2 text-4xl font-bold text-white sm:max-w-[45%]">
+            <p className="mt-2 rounded-md bg-black/50 px-8 py-4 text-left text-xl sm:mb-2 sm:text-2xl md:text-4xl">
               5分間掃除をしてモンスターに攻撃しよう！
             </p>
           </div>
