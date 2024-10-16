@@ -2,6 +2,7 @@ import BasicButton from './basicButton';
 import BlackButton from './blackButton';
 import BottomNavigation from './bottomNavigation';
 import Footers from './footers';
+import GuildCardsTab from './guildCardsTab';
 import Headers from './headers';
 import Loading from './loading';
 import SecondaryButton from './secondaryButton';
@@ -16,4 +17,5 @@ export {
   SecondaryButton,
   BlackButton,
   UserAvatar,
+  GuildCardsTab,
 };
