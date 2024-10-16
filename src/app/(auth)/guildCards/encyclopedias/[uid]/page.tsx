@@ -45,7 +45,7 @@ export default function MonsterEncyclopedia() {
   if (!monstersData) return <Loading />;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[url('/images/layouts/basic_background.jpg')] bg-auto bg-repeat">
+    <div className="relative min-h-screen overflow-hidden bg-auto bg-repeat">
       <div className="absolute left-1/2 top-10 z-10 -translate-x-1/2 text-4xl font-bold text-white">
         <p
           className="mt-2 min-w-[300px] rounded-md bg-black/50 p-4 text-center text-2xl sm:mb-2 sm:text-2xl md:text-5xl"

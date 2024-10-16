@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Quest {
   id: number;
   title: string;
@@ -65,3 +67,13 @@ export interface MobileDialogProps {
   quest: Quest | undefined;
   monster: Monster | undefined;
 }
+
+export interface GeneralLayoutProps {
+  children: ReactNode;
+}
+
+export interface AuthLayoutProps {
+  children: ReactNode;
+}
+
+

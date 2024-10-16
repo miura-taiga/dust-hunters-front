@@ -7,7 +7,6 @@ export const GameContainerWrapper: React.FC<{ children: React.ReactNode }> = ({
 };
 
 const GameContainer = styled.div`
-  background-image: url('/images/layouts/basic_background.jpg');
   background-repeat: repeat;
   background-size: auto;
   min-height: 100vh;
