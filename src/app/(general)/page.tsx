@@ -40,7 +40,7 @@ const TopPage: React.FC = () => {
           />
         </div>
         <div className="absolute left-1/2 top-10 z-10 w-full max-w-[90%] -translate-x-1/2 text-4xl font-bold text-white sm:max-w-[78%]">
-          <p className="mt-20 sm:mt-44 md:mt-60 rounded-md bg-black/40 px-8 py-4 text-left text-xl sm:mb-2 sm:text-2xl md:text-4xl">
+          <p className="mt-20 rounded-md bg-black/40 px-8 py-4 text-left text-xl sm:mb-2 sm:mt-44 sm:text-2xl md:mt-60 md:text-4xl">
             日常の掃除を「狩」に変える！クエストに挑戦し、モンスターを討伐しよう！
           </p>
         </div>
