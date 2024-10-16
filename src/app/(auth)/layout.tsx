@@ -1,5 +1,5 @@
-import { AuthLayoutProps } from '@/types';
 import Image from 'next/image';
+import { AuthLayoutProps } from '@/types';
 
 export default function GeneralLayout({ children }: AuthLayoutProps) {
   return (
