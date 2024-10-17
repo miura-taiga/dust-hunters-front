@@ -46,3 +46,4 @@ $ yarn format
 - [Pretteir](https://prettier.io/docs/en/install.html)
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 - [date-fns](https://date-fns.org/)
+- [NoSleep.js](https://github.com/richtr/NoSleep.js)

@@ -3,6 +3,7 @@
 import { Typography } from '@mui/material';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import NoSleep from 'nosleep.js';
 import { useState, useEffect, useRef } from 'react';
 import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
 import { Settings } from '@/config';
@@ -10,7 +11,6 @@ import { useAuth } from '@/contexts/auth';
 import fetcher from '@/lib/fetcher';
 import useFetchData from '@/lib/useFetchData';
 import { Monster } from '@/types';
-import NoSleep from 'nosleep.js';
 
 const BattleStart = () => {
   const { googleUserId } = useAuth();
