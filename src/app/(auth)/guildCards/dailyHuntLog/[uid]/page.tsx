@@ -79,7 +79,7 @@ export default function DailyHuntLog() {
           className="mt-2 min-w-[300px] rounded-md bg-black/50 p-4 text-center text-2xl sm:mb-2 sm:text-2xl md:text-5xl"
           style={{ whiteSpace: 'nowrap' }}
         >
-          日別の活動履歴
+          月別の活動履歴
         </p>
       </div>
       <StyledCard>
