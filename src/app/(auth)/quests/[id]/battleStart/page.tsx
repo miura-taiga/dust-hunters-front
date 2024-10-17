@@ -3,6 +3,7 @@
 import { Typography } from '@mui/material';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import NoSleep from 'nosleep.js';
 import { useState, useEffect, useRef } from 'react';
 import { BasicButton, SecondaryButton, Loading } from '@/components/layouts';
 import { Settings } from '@/config';
@@ -25,43 +26,20 @@ const BattleStart = () => {
   const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
   const battleStartAudioRef = useRef<HTMLAudioElement | null>(null);
   const attackAudioRef = useRef<HTMLAudioElement | null>(null);
-  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+
+  const noSleepRef = useRef<NoSleep | null>(null);
 
   const monster: Monster | undefined = useFetchData<Monster>(
     questId ? `${Settings.API_URL}/api/v1/monsters/${questId}` : '',
   );
 
-  const requestWakeLock = async () => {
-    try {
-      if ('wakeLock' in navigator) {
-        wakeLockRef.current = await navigator.wakeLock.request('screen');
-        console.log('Wake Lock is active');
-      }
-    } catch (err) {
-      console.error('Failed to acquire Wake Lock:', err);
-    }
-  };
-
-  const releaseWakeLock = () => {
-    if (wakeLockRef.current) {
-      wakeLockRef.current.release().then(() => {
-        wakeLockRef.current = null;
-        console.log('Wake Lock is released');
-      });
-    }
-  };
-
   useEffect(() => {
-    if (isStarted) {
-      requestWakeLock();
-    } else {
-      releaseWakeLock();
-    }
+    noSleepRef.current = new NoSleep();
 
     return () => {
-      releaseWakeLock();
+      noSleepRef.current?.disable();
     };
-  }, [isStarted]);
+  }, []);
 
   useEffect(() => {
     if (!isStarted) return;
@@ -104,6 +82,8 @@ const BattleStart = () => {
     battleStartAudioRef.current.play();
 
     countdownAudioRef.current = new Audio('/sounds/Countdown06-2.mp3');
+
+    noSleepRef.current?.enable();
 
     setIsStarted(true);
   };
