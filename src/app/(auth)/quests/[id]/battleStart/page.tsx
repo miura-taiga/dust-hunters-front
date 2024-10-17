@@ -21,7 +21,10 @@ const BattleStart = () => {
   const router = useRouter();
   const params = useParams();
   const questId = params.id;
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const countdownAudioRef = useRef<HTMLAudioElement | null>(null);
+  const battleStartAudioRef = useRef<HTMLAudioElement | null>(null);
+  const attackAudioRef = useRef<HTMLAudioElement | null>(null);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
 
   const monster: Monster | undefined = useFetchData<Monster>(
@@ -72,8 +75,8 @@ const BattleStart = () => {
   }, [countdown, isStarted]);
 
   useEffect(() => {
-    if (countdown === 3 && audioRef.current) {
-      audioRef.current.play();
+    if (countdown === 3 && countdownAudioRef.current) {
+      countdownAudioRef.current.play();
     }
   }, [countdown]);
 
@@ -97,7 +100,11 @@ const BattleStart = () => {
       quest_id: questId,
     });
 
-    audioRef.current = new Audio('/sounds/Countdown06-2.mp3');
+    battleStartAudioRef.current = new Audio('/sounds/battle-start.mp3');
+    battleStartAudioRef.current.play();
+
+    countdownAudioRef.current = new Audio('/sounds/Countdown06-2.mp3');
+
     setIsStarted(true);
   };
 
@@ -119,6 +126,9 @@ const BattleStart = () => {
       `${Settings.API_URL}/api/v1/user_quests/${questId}/complete`,
       'PATCH',
     );
+
+    attackAudioRef.current = new Audio('/sounds/attack.mp3');
+    attackAudioRef.current.play();
 
     router.push(`/quests/${questId}/battleEnd`);
   };

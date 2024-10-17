@@ -79,4 +79,3 @@ export interface AuthLayoutProps {
 export interface GuildCardsLayoutProps {
   children: ReactNode;
 }
-
