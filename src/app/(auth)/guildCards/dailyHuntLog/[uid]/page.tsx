@@ -135,13 +135,13 @@ export default function DailyHuntLog() {
           </div>
           <div className="mt-6 flex flex-nowrap justify-between space-x-4">
             <BasicButton
-              text="◀️前の月"
+              text="◀︎前の月"
               onClick={goToPreviousMonth}
               style={{ padding: '6px 12px', fontSize: '14px' }}
             />
 
             <BasicButton
-              text="次の月▶️"
+              text="次の月▶︎"
               onClick={goToNextMonth}
               style={{ padding: '6px 12px', fontSize: '14px' }}
             />
