@@ -48,7 +48,8 @@ const CustomTabs: React.FC = () => {
         >
           <Tab label="図鑑" className="font-medium text-gray-800" />
           <Tab label="活動履歴" className="font-medium text-gray-800" />
-          <Tab label="掃除場所" className="font-medium text-gray-800" />
+          {/* ページ出来上がり次第表示 */}
+          {/* <Tab label="掃除場所" className="font-medium text-gray-800" /> */}
         </Tabs>
       </Box>
     </div>
