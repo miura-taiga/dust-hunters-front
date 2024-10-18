@@ -47,3 +47,5 @@ $ yarn format
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 - [date-fns](https://date-fns.org/)
 - [NoSleep.js](https://github.com/richtr/NoSleep.js)
+- [react-chartjs-2](https://github.com/reactchartjs/react-chartjs-2)
+- [chartjs-plugin-datalabels](https://chartjs-plugin-datalabels.netlify.app/)
