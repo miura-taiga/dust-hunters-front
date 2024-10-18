@@ -37,6 +37,12 @@ const CustomTabs: React.FC = () => {
         sx={{
           borderBottom: 1,
           borderColor: 'divider',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          backgroundColor: 'white',
         }}
       >
         <Tabs
@@ -44,13 +50,14 @@ const CustomTabs: React.FC = () => {
           onChange={handleTabChange}
           aria-label="navigation tabs"
           variant="fullWidth"
-          className="rounded-md bg-white shadow-md"
+          className="rounded-md shadow-md"
         >
           <Tab label="図鑑" className="font-medium text-gray-800" />
           <Tab label="活動履歴" className="font-medium text-gray-800" />
           <Tab label="掃除場所" className="font-medium text-gray-800" />
         </Tabs>
       </Box>
+      <div style={{ paddingTop: '48px' }}></div>
     </div>
   );
 };
