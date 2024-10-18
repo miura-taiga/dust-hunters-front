@@ -12,8 +12,12 @@ import {
   Legend,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Loading } from '@/components/layouts';
+import { Settings } from '@/config';
+import { useAuth } from '@/contexts/auth';
+import useFetchData from '@/lib/useFetchData';
 
 ChartJS.register(
   CategoryScale,
@@ -53,12 +57,40 @@ const StyledCardContent = styled(CardContent)`
 `;
 
 export default function CleanAreaGraph() {
-  const [data] = useState({
+  const { googleUserId } = useAuth();
+  const [defeatCount, setDefeatCount] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const defeatedData = useFetchData<
+    { quest_id: number; defeat_count: number }[]
+  >(
+    googleUserId
+      ? `${Settings.API_URL}/api/v1/guild_cards/defeated_records/${googleUserId}`
+      : '',
+  );
+
+  useEffect(() => {
+    if (!defeatedData) {
+      return;
+    }
+
+    if (Array.isArray(defeatedData)) {
+      const counts = defeatedData.map((record) => record.defeat_count);
+      setDefeatCount(counts);
+      setIsLoading(false);
+    }
+  }, [defeatedData]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const data = {
     labels: ['デスク', 'リビング', 'キッチン', 'トイレ', 'バスルーム'],
     datasets: [
       {
-        label: 'Defeated Count',
-        data: [5, 7, 8, 4, 9],
+        label: '掃除回数',
+        data: defeatCount,
         backgroundColor: [
           'rgba(255, 99, 132, 0.8)',
           'rgba(54, 162, 235, 0.8)',
@@ -76,7 +108,7 @@ export default function CleanAreaGraph() {
         borderWidth: 2,
       },
     ],
-  });
+  };
 
   const options = {
     indexAxis: 'x' as const,
@@ -98,7 +130,6 @@ export default function CleanAreaGraph() {
         color: '#fff',
         anchor: 'end' as const,
         align: 'end' as const,
-
         formatter: (value: number) => value,
         font: {
           weight: 'bold' as const,
