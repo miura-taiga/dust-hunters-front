@@ -63,7 +63,16 @@ export default function SimpleBottomNavigation() {
         >
           <BottomNavigationAction label="ホーム" icon={<HomeIcon />} />
           <BottomNavigationAction label="クエスト" icon={<AssignmentIcon />} />
-          <BottomNavigationAction label="ギルドカード" icon={<BookIcon />} />
+          <BottomNavigationAction
+            label="ギルドカード"
+            icon={<BookIcon />}
+            sx={{
+              '& .MuiBottomNavigationAction-label': {
+                whiteSpace: 'nowrap',
+              },
+            }}
+          />
+
           <BottomNavigationAction label="ユーザー" icon={<PersonIcon />} />
         </BottomNavigation>
       </Box>
