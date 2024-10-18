@@ -14,19 +14,11 @@ import {
 } from 'date-fns';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { BasicButton } from '@/components/layouts';
-
-const mockData = [
-  { defeated_at: '2024-10-01T12:34:56Z' },
-  { defeated_at: '2024-10-02T08:23:12Z' },
-  { defeated_at: '2024-10-04T17:11:22Z' },
-  { defeated_at: '2024-10-07T15:45:32Z' },
-];
-
-interface ActivityRecord {
-  date: string;
-  defeated: boolean;
-}
+import { BasicButton, Loading } from '@/components/layouts';
+import { Settings } from '@/config';
+import { useAuth } from '@/contexts/auth';
+import useFetchData from '@/lib/useFetchData';
+import { ActivityRecord, DefeatedRecordsData } from '@/types';
 
 const StyledCard = styled(Card)`
   background-color: rgba(30, 58, 138, 0.8);
@@ -39,28 +31,40 @@ const StyledCard = styled(Card)`
 `;
 
 export default function DailyHuntLog() {
+  const { googleUserId } = useAuth();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [activityLog, setActivityLog] = useState<ActivityRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const defeatedData = useFetchData<DefeatedRecordsData>(
+    googleUserId
+      ? `${Settings.API_URL}/api/v1/user_quests/defeated_records/${googleUserId}`
+      : '',
+  );
 
   useEffect(() => {
+    if (!defeatedData || !Array.isArray(defeatedData.defeated_at)) {
+      return;
+    }
+
     const start = startOfMonth(currentMonth);
     const end = endOfMonth(currentMonth);
     const monthDays = eachDayOfInterval({ start, end });
 
     const firstDayOfWeek = getDay(start);
-
     const emptyDays = Array(firstDayOfWeek).fill(null);
 
     const logData = monthDays.map((date) => {
       const dateString = format(date, 'yyyy-MM-dd');
-      const defeated = mockData.some((record) =>
-        record.defeated_at.startsWith(dateString),
+      const defeated = defeatedData.defeated_at.some((record) =>
+        record.startsWith(dateString),
       );
       return { date: dateString, defeated };
     });
 
     setActivityLog([...emptyDays, ...logData]);
-  }, [currentMonth]);
+    setIsLoading(false);
+  }, [currentMonth, defeatedData]);
 
   const goToNextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
@@ -71,6 +75,10 @@ export default function DailyHuntLog() {
   };
 
   const daysOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
