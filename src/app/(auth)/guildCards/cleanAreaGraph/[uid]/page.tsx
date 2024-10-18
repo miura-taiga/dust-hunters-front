@@ -101,7 +101,7 @@ export default function CleanAreaGraph() {
 
         formatter: (value: number) => value,
         font: {
-          weight: 'bold',
+          weight: 'bold' as const,
           size: 14,
         },
       },
