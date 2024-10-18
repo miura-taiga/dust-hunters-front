@@ -63,7 +63,7 @@ export default function SimpleBottomNavigation() {
         >
           <BottomNavigationAction label="ホーム" icon={<HomeIcon />} />
           <BottomNavigationAction label="クエスト" icon={<AssignmentIcon />} />
-          <BottomNavigationAction label="図鑑" icon={<BookIcon />} />
+          <BottomNavigationAction label="ギルドカード" icon={<BookIcon />} />
           <BottomNavigationAction label="ユーザー" icon={<PersonIcon />} />
         </BottomNavigation>
       </Box>

@@ -79,3 +79,12 @@ export interface AuthLayoutProps {
 export interface GuildCardsLayoutProps {
   children: ReactNode;
 }
+
+export interface DefeatedRecordsData {
+  defeated_at: string[];
+}
+
+export interface ActivityRecord {
+  date: string;
+  defeated: boolean;
+}
