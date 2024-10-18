@@ -97,7 +97,8 @@ export default function CleanAreaGraph() {
       datalabels: {
         color: '#fff',
         anchor: 'end',
-        align: 'end',
+        align: 'end' as const,
+
         formatter: (value: number) => value,
         font: {
           weight: 'bold',
