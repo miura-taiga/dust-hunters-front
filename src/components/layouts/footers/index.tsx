@@ -75,14 +75,14 @@ export default function Footer() {
         {/* ソーシャルメディアアイコン */}
         <Box className="flex space-x-4">
           {/* GitHubアイコン */}
-          <Link href="#" color="inherit">
+          <Link href="https://github.com/miura-taiga/dust-hunters" color="inherit">
             <GitHub
               fontSize="large"
               className="text-white transition-opacity hover:scale-110 hover:text-gray-400 hover:opacity-40"
             />
           </Link>
           {/* Xアイコン */}
-          <Link href="#" color="inherit">
+          <Link href="https://x.com/Mmmm_mtm" color="inherit">
             <XIcon
               fontSize="large"
               className="text-white transition-opacity hover:scale-110 hover:text-gray-400 hover:opacity-40"
