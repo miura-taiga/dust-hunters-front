@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { AuthLayoutProps } from '@/types';
 
-export default function GeneralLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="relative">
       <Image
