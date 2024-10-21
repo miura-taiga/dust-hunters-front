@@ -76,6 +76,10 @@ export interface AuthLayoutProps {
   children: ReactNode;
 }
 
+export interface CommonLayoutProps {
+  children: ReactNode;
+}
+
 export interface GuildCardsLayoutProps {
   children: ReactNode;
 }

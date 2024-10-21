@@ -51,21 +51,21 @@ export default function Footer() {
           }}
         >
           <Link
-            href="#"
+            href="privacyPolicy"
             underline="hover"
             sx={{ color: 'white', '&:hover': { color: 'gray' } }}
           >
             プライバシーポリシー
           </Link>
           <Link
-            href="#"
+            href="termOfService"
             underline="hover"
             sx={{ color: 'white', '&:hover': { color: 'gray' } }}
           >
             利用規約
           </Link>
           <Link
-            href="#"
+            href="contact"
             underline="hover"
             sx={{ color: 'white', '&:hover': { color: 'gray' } }}
           >
@@ -75,7 +75,10 @@ export default function Footer() {
         {/* ソーシャルメディアアイコン */}
         <Box className="flex space-x-4">
           {/* GitHubアイコン */}
-          <Link href="https://github.com/miura-taiga/dust-hunters" color="inherit">
+          <Link
+            href="https://github.com/miura-taiga/dust-hunters"
+            color="inherit"
+          >
             <GitHub
               fontSize="large"
               className="text-white transition-opacity hover:scale-110 hover:text-gray-400 hover:opacity-40"
