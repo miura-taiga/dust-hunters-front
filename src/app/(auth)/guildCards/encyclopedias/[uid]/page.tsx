@@ -29,16 +29,14 @@ export default function MonsterEncyclopedia() {
 
   useEffect(() => {
     if (Array.isArray(monstersData)) {
-      const formattedGuildCards = monstersData
-        .map((data) => ({
-          defeat_count: data.defeat_count,
-          monster: {
-            id: data.monster_id,
-            name: data.monster_name,
-            bestiary_monster_image_url: data.bestiary_monster_image_url,
-          } as Monster,
-        }))
-        .sort((a, b) => a.monster.id - b.monster.id);
+      const formattedGuildCards = monstersData.map((data) => ({
+        defeat_count: data.defeat_count,
+        monster: {
+          id: data.monster_id,
+          name: data.monster_name,
+          bestiary_monster_image_url: data.bestiary_monster_image_url,
+        } as Monster,
+      }));
 
       setGuildCards(formattedGuildCards);
     }
