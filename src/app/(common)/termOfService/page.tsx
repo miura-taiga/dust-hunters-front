@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function TermOfService() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center">
@@ -9,7 +11,7 @@ export default function TermOfService() {
           利用規約
         </p>
       </div>
-      <div className="z-10 mb-10 mt-32 w-full max-w-4xl rounded-lg bg-black/60 p-8 text-white shadow-lg">
+      <div className="z-10 mb-10 mt-32 w-full max-w-4xl rounded-lg bg-black/70 p-8 text-white shadow-lg">
         {/* 1. はじめに */}
         <section className="mb-8">
           <h2 className="mb-4 text-xl font-bold">1. はじめに</h2>
@@ -73,7 +75,14 @@ export default function TermOfService() {
         <section className="mb-8">
           <h2 className="mb-4 text-xl font-bold">6. プライバシーポリシー</h2>
           <p className="text-gray-200">
-            本アプリにおける個人情報の取り扱いについては、別途定めるプライバシーポリシーに従うものとします。
+            本アプリにおける個人情報の取り扱いについては、別途定める
+            <Link
+              href="/privacyPolicy"
+              className="underline hover:text-blue-700"
+            >
+              プライバシーポリシー
+            </Link>
+            に従うものとします。
           </p>
         </section>
 
