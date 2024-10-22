@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Suspense } from 'react';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { BottomNavigation, Loading, UserAvatar } from '@/components/layouts';
 import { Setting } from '@/config';
 import { AuthProvider } from '@/contexts/auth';
-import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
