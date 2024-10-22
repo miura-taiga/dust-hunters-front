@@ -65,8 +65,10 @@ export default function Footer() {
             利用規約
           </Link>
           <Link
-            href="contact"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfF_zWzn3Im1UpxYOLms8tiZddzbD4ZIyww5i_g43NDwH67ww/viewform"
             underline="hover"
+            target="_blank"
+            rel="noopener noreferrer"
             sx={{ color: 'white', '&:hover': { color: 'gray' } }}
           >
             お問い合わせ
