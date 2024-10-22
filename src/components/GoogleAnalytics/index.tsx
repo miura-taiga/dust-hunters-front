@@ -13,8 +13,11 @@ const GoogleAnalytics = () => {
     if (!IS_GATAG) {
       return;
     }
-    const url = pathname + searchParams.toString();
-    pageview(url);
+
+    if (searchParams) {
+      const url = pathname + searchParams.toString();
+      pageview(url);
+    }
   }, [pathname, searchParams]);
 
   return (
