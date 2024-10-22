@@ -78,7 +78,7 @@ export default function TermOfService() {
             本アプリにおける個人情報の取り扱いについては、別途定める
             <Link
               href="/privacyPolicy"
-              className="underline hover:text-blue-700"
+              className="underline hover:text-gray-600"
             >
               プライバシーポリシー
             </Link>

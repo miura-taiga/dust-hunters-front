@@ -54,7 +54,7 @@ export default function PrivacyPolicy() {
             Analyticsの詳細については、
             <a
               href="https://marketingplatform.google.com/about/analytics/terms/jp/"
-              className="underline hover:text-blue-700"
+              className="underline hover:text-gray-600"
             >
               Googleのプライバシーポリシー
             </a>
@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
             これらの権利を行使する場合、
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSfF_zWzn3Im1UpxYOLms8tiZddzbD4ZIyww5i_g43NDwH67ww/viewform"
-              className="underline hover:text-blue-700"
+              className="underline hover:text-gray-600"
               target="_blank"
             >
               こちらにお問い合わせ
