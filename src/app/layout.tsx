@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { BottomNavigation, UserAvatar } from '@/components/layouts';
 import { Setting } from '@/config';
 import { AuthProvider } from '@/contexts/auth';
@@ -39,6 +40,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <UserAvatar />
