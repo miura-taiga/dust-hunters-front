@@ -4,21 +4,16 @@ import { CommonLayoutProps } from '@/types';
 
 export default function CommonLayout({ children }: CommonLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col">
+      <Image
+        src="/images/layouts/basic_background.jpg"
+        alt="Basic Background Image"
+        fill
+        style={{ objectFit: 'cover' }}
+        className="absolute left-0 top-0 -z-10 size-full"
+      />
       <Headers />
-      <main className="relative z-10">{children}</main>
-
-      <div className="relative grow">
-        <div className="relative h-[calc(100vh-150px)] w-full">
-          <Image
-            src="/images/layouts/basic_background.jpg"
-            alt="Basic Background Image"
-            fill
-            style={{ objectFit: 'cover' }}
-            className="absolute left-0 top-0 -z-10 size-full"
-          />
-        </div>
-      </div>
+      <main className="relative z-10 grow">{children}</main>
       <Footers />
     </div>
   );

@@ -98,7 +98,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [logout]);
 
   useEffect(() => {
-    const publicPaths = '/';
+    const publicPaths = ['/', '/termOfService', '/privacyPolicy'];
+
     if (!isCheckingToken && !token && !publicPaths.includes(pathname)) {
       router.push('/?flash=warning&message=ログインが必要です。');
     }
