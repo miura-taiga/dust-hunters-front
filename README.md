@@ -49,3 +49,4 @@ $ yarn format
 - [NoSleep.js](https://github.com/richtr/NoSleep.js)
 - [react-chartjs-2](https://github.com/reactchartjs/react-chartjs-2)
 - [chartjs-plugin-datalabels](https://chartjs-plugin-datalabels.netlify.app/)
+- [@types/gtag.js](https://github.com/DefinitelyTyped/DefinitelyTyped)
