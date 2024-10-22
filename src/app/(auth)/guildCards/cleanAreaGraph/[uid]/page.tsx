@@ -75,7 +75,8 @@ export default function CleanAreaGraph() {
     }
 
     if (Array.isArray(defeatedData)) {
-      const counts = defeatedData.map((record) => record.defeat_count);
+      const sortedData = defeatedData.sort((a, b) => a.quest_id - b.quest_id);
+      const counts = sortedData.map((record) => record.defeat_count);
       setDefeatCount(counts);
       setIsLoading(false);
     }
