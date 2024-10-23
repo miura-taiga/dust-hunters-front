@@ -148,7 +148,7 @@ const BattleStart = () => {
                 style={{
                   fontSize: '34px',
                   padding: '16px 42px',
-                  marginTop: '400px',
+                  marginTop: '300px',
                 }}
               />
             ) : !isTimeUp ? (
@@ -162,7 +162,7 @@ const BattleStart = () => {
                 style={{
                   fontSize: '34px',
                   padding: '16px 42px',
-                  marginTop: '400px',
+                  marginTop: '300px',
                 }}
               />
             )}
