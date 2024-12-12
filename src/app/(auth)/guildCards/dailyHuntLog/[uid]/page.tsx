@@ -43,10 +43,6 @@ export default function DailyHuntLog() {
   );
 
   useEffect(() => {
-    if (!defeatedData || !Array.isArray(defeatedData.defeated_at)) {
-      return;
-    }
-
     const start = startOfMonth(currentMonth);
     const end = endOfMonth(currentMonth);
     const monthDays = eachDayOfInterval({ start, end });
@@ -56,9 +52,10 @@ export default function DailyHuntLog() {
 
     const logData = monthDays.map((date) => {
       const dateString = format(date, 'yyyy-MM-dd');
-      const defeated = defeatedData.defeated_at.some((record) =>
-        record.startsWith(dateString),
-      );
+      const defeated =
+        defeatedData?.defeated_at?.some((record) =>
+          record.startsWith(dateString),
+        ) || false;
       return { date: dateString, defeated };
     });
 
