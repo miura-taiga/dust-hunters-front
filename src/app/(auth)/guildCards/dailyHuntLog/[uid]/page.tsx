@@ -52,9 +52,10 @@ export default function DailyHuntLog() {
 
     const logData = monthDays.map((date) => {
       const dateString = format(date, 'yyyy-MM-dd');
-      const defeated = defeatedData?.defeated_at?.some((record) =>
-        record.startsWith(dateString)
-      ) || false;
+      const defeated =
+        defeatedData?.defeated_at?.some((record) =>
+          record.startsWith(dateString),
+        ) || false;
       return { date: dateString, defeated };
     });
 
