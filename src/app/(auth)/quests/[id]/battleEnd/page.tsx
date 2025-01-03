@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { BasicButton, BlackButton, Loading } from '@/components/layouts';
 import { Settings } from '@/config';
-import { Setting } from '@/config';
 import useFetchData from '@/lib/useFetchData';
 import { Monster } from '@/types';
 
@@ -27,7 +26,7 @@ const BattleEnd = () => {
   };
 
   const handleShare = () => {
-    const appUrl = Setting.FRONT_URL;
+    const appUrl = Settings.FRONT_URL;
     const text = `${monster?.name}を討伐完了！`;
     const hashtags = 'DustHunters';
 
@@ -47,7 +46,7 @@ const BattleEnd = () => {
     window.open(shareUrl, '_blank');
   };
 
-  const imageUrl = `${Setting.FRONT_URL}/images/layouts/ogp.png`;
+  const imageUrl = `${Settings.FRONT_URL}/images/layouts/ogp.png`;
 
   if (!monster) {
     return <Loading />;
