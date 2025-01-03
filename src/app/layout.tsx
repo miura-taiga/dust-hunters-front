@@ -4,7 +4,7 @@ import './globals.css';
 import { Suspense } from 'react';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { BottomNavigation, Loading, UserAvatar } from '@/components/layouts';
-import { Setting } from '@/config';
+import { Settings } from '@/config';
 import { AuthProvider } from '@/contexts/auth';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Dust Hunters',
     description: '『 掃除 x 狩 』のお掃除支援アプリです。',
-    url: Setting.FRONT_URL,
+    url: Settings.FRONT_URL,
     images: [
       {
-        url: `${Setting.FRONT_URL}/images/layouts/ogp.jpg`,
+        url: `${Settings.FRONT_URL}/images/layouts/ogp.jpg`,
         width: 1200,
         height: 630,
       },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: [`${Setting.FRONT_URL}/images/layouts/ogp.jpg`],
+    images: [`${Settings.FRONT_URL}/images/layouts/ogp.jpg`],
   },
 };
 
