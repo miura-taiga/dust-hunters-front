@@ -18,8 +18,6 @@ docker compose run front ~~~
 
 yarnを使っているのでyarnでいれるようにしてください
 
-`docker compose build`か、コンテナ内で`yarn install`のどちらかが必要になるので適宜連絡お願いします。
-
 ## ESLint、Prettier
 
 ESLintを利用しています。
