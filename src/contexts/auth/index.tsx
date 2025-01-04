@@ -32,12 +32,10 @@ const getTokenFromStorageOrUrl = () => {
   const tokenFromUrl = query.get('token');
 
   if (tokenFromUrl) {
-    console.log('Token from URL:', tokenFromUrl);
     return tokenFromUrl;
   }
 
   const storedToken = localStorage.getItem('authToken');
-  console.log('Token from localStorage:', storedToken);
   return storedToken || null;
 };
 
@@ -66,7 +64,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       try {
         const decoded = jwtDecode<JwtPayload>(token);
-        console.log('Decoded token:', decoded);
         setGoogleUserId(decoded.google_user_id);
 
         fetch(`${Settings.API_URL}/api/v1/users/current`, {
@@ -81,15 +78,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             return response.json();
           })
           .then((data) => {
-            console.log('Fetched user data:', data);
             setCurrentUser(data.user);
           })
           .catch((error) => {
-            console.error('Error fetching user:', error);
             logout();
           });
       } catch (error) {
-        console.error('Invalid token', error);
         logout();
       }
     }
