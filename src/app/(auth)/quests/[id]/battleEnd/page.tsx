@@ -30,18 +30,11 @@ const BattleEnd = () => {
     const text = `${monster?.name}を討伐完了！`;
     const hashtags = 'DustHunters';
 
-    console.log('App URL:', appUrl);
-    console.log('Share Text:', text);
-    console.log('Hashtags:', hashtags);
-    console.log('Image URL:', imageUrl);
-
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text,
     )}&url=${encodeURIComponent(appUrl)}&hashtags=${encodeURIComponent(
       hashtags,
     )}`;
-
-    console.log('Share URL:', shareUrl);
 
     window.open(shareUrl, '_blank');
   };

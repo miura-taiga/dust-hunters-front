@@ -17,14 +17,9 @@ const UserAvatar: FC = () => {
   );
 
   useEffect(() => {
-    console.log('取得したGoogle User ID:', googleUserId);
-    console.log('取得したユーザーデータ:', userData);
-
     if (userData) {
       setHunterRank(userData.hunterRank);
-      console.log('設定されたハンターランク:', userData.hunterRank);
       setGender(userData.gender);
-      console.log('設定された性別:', userData.gender);
     }
   }, [userData, googleUserId]);
 
